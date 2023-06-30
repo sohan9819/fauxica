@@ -1,2 +1,2 @@
 # fauxica
- An e-commerce website built using react
+ An e-commerce webapp built using react
