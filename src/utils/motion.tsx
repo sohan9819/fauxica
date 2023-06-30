@@ -1,9 +1,8 @@
 import { motion } from 'framer-motion';
 
-const transiton = (OgComponent: React.ComponentType) => {
-  return () => (
+const Transition = () => {
+  return (
     <>
-      <OgComponent />
       <motion.div
         className='slide-in'
         initial={{ scaleY: 0 }}
@@ -22,4 +21,4 @@ const transiton = (OgComponent: React.ComponentType) => {
   );
 };
 
-export default transiton;
+export default Transition;
