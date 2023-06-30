@@ -1,0 +1,140 @@
+.product__card {
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+  &:hover,
+  &:focus {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  .card {
+    &__image {
+      aspect-ratio: 1;
+      width: 100%;
+      border-radius: 1rem;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    &__info {
+      padding: 1rem 0;
+    }
+
+    &__name {
+      font-size: $fs-default;
+      // font-weight: $fw-regular;
+    }
+
+    &__description {
+      font-size: $fs-s;
+      // display: none;
+    }
+
+    &__stats {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &-price {
+        font-size: $fs-l;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      &__rating {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-size: $fs-s;
+        color: $color-gray;
+
+        &-rate {
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          gap: 0.4rem;
+          font-size: $fs-default;
+          color: $color-black;
+
+          &-icon {
+            color: $color-gold;
+          }
+        }
+      }
+    }
+
+    &__quantity {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 2rem;
+
+      &-minus,
+      &-plus {
+        font-size: $fs-default;
+        padding: 0rem 1rem;
+      }
+
+      &-number {
+        font-size: $fs-l;
+      }
+    }
+
+    &__btns {
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      gap: 1rem;
+      margin: 1rem 0rem;
+    }
+
+    &__btn {
+      width: 100%;
+      font-size: $fs-xl;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 1rem;
+
+      &__cart {
+        color: $color-orange;
+
+        &:hover {
+          background: $color-orange;
+          color: $color-white;
+        }
+      }
+
+      &__heart {
+        color: $color-pink;
+
+        &:hover {
+          background: $color-pink;
+          color: $color-white;
+        }
+      }
+
+      &-cta {
+        width: 100%;
+        font-size: $fs-l;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: teal;
+        border-radius: 1rem;
+
+        &:hover {
+          color: white;
+          background: $color-primary;
+        }
+      }
+    }
+  }
+}

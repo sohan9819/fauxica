@@ -1,0 +1,9 @@
+.wishlist {
+  &__container {
+    width: 100%;
+    max-width: 120rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 3rem 2rem;
+  }
+}

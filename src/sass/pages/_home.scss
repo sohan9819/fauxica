@@ -1,0 +1,181 @@
+.home {
+  display: flex;
+  gap: 8em;
+  margin-top: 6rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__hero {
+    width: 100%;
+    max-width: 120rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 0rem 2rem 2rem;
+
+    &-title {
+      font-size: 6rem;
+      font-family: $ff-primary;
+      font-weight: $fw-light;
+    }
+
+    &-subhead {
+      font-size: $fs-l;
+      //   margin: 2rem 0rem;
+    }
+
+    &__cta {
+      background-color: teal;
+      font-size: $fs-default;
+      font-weight: $fw-bold;
+      color: $color-white;
+      text-decoration: none;
+      border-radius: 1.9em;
+      padding: 1em 2em;
+      width: max-content;
+      margin: 2rem 0rem 4rem;
+      cursor: pointer;
+    }
+
+    &__news {
+      width: 100%;
+      display: flex;
+      gap: 3em;
+      padding: 5em;
+      border: 1px solid black;
+      border-radius: 0.8em;
+      position: relative;
+      flex-direction: row;
+      flex-wrap: wrap;
+      // margin: 2rem 0rem;
+
+      &:before {
+        position: absolute;
+        content: '';
+        background: url('/confetti.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        // background-color: red;
+        width: 12rem;
+        height: 12rem;
+        top: -30px;
+        left: -30px;
+        z-index: 2;
+      }
+
+      &-employees {
+        font-size: 5rem;
+        margin: 0;
+        font-weight: 200;
+        line-height: 100%;
+      }
+
+      &-details {
+        font-size: 3rem;
+        margin: 0;
+        max-width: 90rem;
+      }
+    }
+  }
+
+  &__category {
+    width: 100%;
+    max-width: 120rem;
+    display: grid;
+    gap: 2.3em;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas:
+      'card-1 card-3 card-4'
+      'card-2 card-3 card-5';
+    padding: 0rem 2rem 4rem;
+    margin: 0rem 2rem;
+
+    &__card {
+      border-radius: 0.8em;
+      padding: 1.1em;
+      display: flex;
+      align-items: end;
+      transition: transform 500ms;
+
+      &:hover,
+      &:focus-within {
+        transform: scale(0.95);
+      }
+
+      .product {
+        &__image {
+          object-fit: cover;
+        }
+        &__detail {
+          background: white;
+          border-radius: 0.6rem;
+          padding: 2rem;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          transition: transform 800ms;
+        }
+        &__info {
+        }
+        &__brand {
+          color: black;
+          text-decoration: none;
+          font-size: $fs-default;
+          font-weight: bold;
+        }
+        &__category {
+          font-size: 2rem;
+          margin: 0;
+        }
+        &__price {
+          font-size: $fs-l;
+        }
+      }
+
+      &.card-1 {
+        grid-area: card-1;
+        height: 100%;
+        width: 100%;
+        background: url('https://images.unsplash.com/photo-1605022600390-071c6f969b32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=388&q=80');
+        background-position: center;
+        background-size: cover;
+        aspect-ratio: 1;
+      }
+
+      &.card-2 {
+        grid-area: card-2;
+        aspect-ratio: 1;
+        background: url('https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80');
+        background-position: center;
+        background-size: cover;
+      }
+      &.card-3 {
+        grid-area: card-3;
+        aspect-ratio: 1 / 2;
+        background: url('https://images.unsplash.com/photo-1527813972756-2890936000e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=391&q=80');
+        background-position: center;
+        background-size: cover;
+      }
+      &.card-4 {
+        grid-area: card-4;
+        aspect-ratio: 1;
+        background: url('https://i.ibb.co/R70vBrQ/men.png');
+        background-position: center;
+        background-size: cover;
+      }
+      &.card-5 {
+        grid-area: card-5;
+        aspect-ratio: 1;
+        background: url('https://i.ibb.co/GCCdy8t/womens.png');
+        background-position: center;
+        background-size: cover;
+      }
+    }
+  }
+}

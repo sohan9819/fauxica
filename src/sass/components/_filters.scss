@@ -1,0 +1,226 @@
+.filter {
+  width: 100%;
+  max-width: 100rem;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: $color-primary;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 1rem;
+  border-radius: 2rem;
+  overflow: hidden;
+  // transition: all 200ms ease-out;
+
+  // &.hide {
+  //   opacity: 0;
+  //   padding: 0;
+  //   overflow: hidden;
+  //   height: 0;
+  // }
+
+  &__button {
+    padding: 1rem 2rem;
+    height: 100%;
+    outline: none;
+    border: none;
+    background: $color-primary;
+    color: $color-white;
+    border-radius: 1rem;
+    cursor: pointer;
+
+    &-icon {
+      font-size: 4rem;
+    }
+  }
+
+  &__search {
+    width: 100%;
+    max-width: 120rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: nowrap;
+    margin: auto;
+    padding: 0 2rem;
+
+    &-icon {
+      font-size: 6rem;
+    }
+    &-input {
+      // height: 4rem;
+      width: 100%;
+      padding: 1rem 2rem;
+      outline: none;
+      border-radius: 1rem;
+      border: 2px solid teal;
+      font-size: $fs-default;
+    }
+  }
+
+  &__category {
+    padding: 2rem;
+    background: $color-white;
+    border-radius: 2rem;
+
+    &-title {
+      font-size: $fs-l;
+      margin-bottom: 1rem;
+    }
+
+    &-filters {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    &-label {
+      font-size: $fs-default;
+      display: inline-flex;
+      justify-content: start;
+      align-items: center;
+      gap: 1rem;
+      min-width: max-content;
+    }
+
+    &-input {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+
+  &__price {
+    padding: 2rem;
+    background: $color-white;
+    border-radius: 2rem;
+    flex-grow: 1;
+    gap: 1rem;
+
+    &-title {
+      font-size: 2.8rem;
+    }
+
+    &-label {
+      font-size: $fs-default;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    &-input {
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: 10px;
+      width: 75%;
+      height: 1rem;
+      background: rgb(209, 209, 209);
+      outline: none;
+    }
+
+    &-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 2.4rem;
+      height: 2.4rem;
+      background: $color-primary;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+
+    &-input::-moz-range-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      border: none; /* firefox needs this */
+      width: 2rem;
+      height: 2rem;
+      background: $color-primary;
+      cursor: pointer;
+      border-radius: 50%;
+      outline: 15px solid teal;
+    }
+
+    /* progress (before knob) within Firefox */
+    &-input::-moz-range-progress {
+      background: $color-primary;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      height: 1rem;
+    }
+  }
+
+  &__sort {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    background: $color-white;
+    border-radius: 2rem;
+    gap: 1rem;
+
+    &-title {
+      font-size: $fs-l;
+    }
+
+    &-filters {
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    &-label {
+      font-size: $fs-default;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    &-input {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+
+  &__rating {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    background: $color-white;
+    border-radius: 2rem;
+    gap: 1rem;
+
+    &-title {
+      font-size: $fs-l;
+    }
+
+    &-filters {
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    &-label {
+      font-size: $fs-default;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    &-input {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+}

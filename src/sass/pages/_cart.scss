@@ -1,0 +1,62 @@
+.cart {
+  &__container {
+    width: 100%;
+    max-width: 120rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 3rem 2rem;
+  }
+
+  &__bill {
+    height: 10rem;
+    width: 100%;
+    max-width: 60rem;
+    padding: 1rem 2rem;
+    font-size: $fs-default;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 2rem;
+    border-spacing: 1rem;
+
+    &__heading {
+      font-size: $fs-xl;
+    }
+
+    &__discount,
+    &__delivery,
+    &__total,
+    &__price {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__discount {
+      &-number {
+        color: $color-red;
+      }
+    }
+
+    &__total {
+      font-size: $fs-xl;
+      padding: 1rem 0;
+      &-number {
+        color: $color-primary;
+      }
+    }
+
+    &__save {
+      font-weight: $fw-bold;
+      font-size: $fs-default;
+    }
+
+    &-checkout {
+      width: 100%;
+      background: $color-primary;
+      border-radius: 2rem;
+      color: $color-white;
+      font-size: 2.6rem;
+      padding: 1rem 2rem;
+      margin: 1rem 0;
+    }
+  }
+}
