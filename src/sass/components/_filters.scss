@@ -1,6 +1,6 @@
 .filter {
   width: 100%;
-  max-width: 100rem;
+  max-width: 120rem;
   padding: 0 2rem;
   display: flex;
   justify-content: space-evenly;
@@ -135,12 +135,12 @@
       -webkit-appearance: none;
       appearance: none;
       border: none; /* firefox needs this */
-      width: 2rem;
-      height: 2rem;
+      width: 0.5rem;
+      height: 0.5rem;
       background: $color-primary;
       cursor: pointer;
       border-radius: 50%;
-      outline: 15px solid teal;
+      outline: 1rem solid teal;
     }
 
     /* progress (before knob) within Firefox */
