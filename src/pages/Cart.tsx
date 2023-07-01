@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
-import { ProductCard } from '../components';
-import Transition from '../utils/motion';
+import { Transition, ProductCard } from '../components';
 
 const Cart = () => {
   return (

@@ -1,9 +1,17 @@
 import { NavLink } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { navVariants } from '../utils/motion';
 import Logo from '../assets/logo.svg';
 
 const Navbar = () => {
   return (
-    <header className='header'>
+    <motion.header
+      className='header'
+      variants={navVariants}
+      initial='hidden'
+      whileInView='show'
+      viewport={{ once: true }}
+    >
       <div className='logo'>
         <img src={Logo} alt='Fauxica Logo' className='logo__image' />
       </div>
@@ -41,7 +49,7 @@ const Navbar = () => {
         <div></div>
         <div></div>
       </div> */}
-    </header>
+    </motion.header>
   );
 };
 

@@ -1,0 +1,106 @@
+.auth {
+  &__container {
+    width: 100%;
+    max-width: 100rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  &__option {
+    font-size: $fs-default;
+    &-text {
+      cursor: pointer;
+      background: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+
+    &-btn {
+      background: none;
+    }
+
+    &-icon {
+      font-size: 5rem;
+      cursor: pointer;
+    }
+  }
+
+  &__form {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    gap: 2rem;
+    background: $color-white;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    width: 100%;
+    max-width: 60rem;
+    padding: 2rem;
+    border-radius: 2rem;
+  }
+
+  &__required {
+    color: $color-red;
+    display: inline-block;
+    white-space: nowrap;
+    font-weight: $fw-bold;
+  }
+
+  &__username,
+  &__email,
+  &__password,
+  &__confPassword {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    font-size: $fs-s;
+    color: $color-gray;
+
+    &-input {
+      width: 100%;
+      font-size: $fs-default;
+      border-radius: 1rem;
+      outline: none;
+      border: none;
+      background: $color-grayLight;
+      padding: 1rem 2rem;
+    }
+  }
+
+  &__terms {
+    width: max-content;
+    display: inline-flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+    font-size: $fs-s;
+    cursor: pointer;
+
+    &-input {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+
+  &__btn {
+    width: 100%;
+    max-width: 20rem;
+    background: $color-primary;
+    color: $color-white;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    font-size: $fs-default;
+  }
+}

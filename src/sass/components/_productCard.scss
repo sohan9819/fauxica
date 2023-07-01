@@ -18,7 +18,7 @@
     }
 
     &__info {
-      padding: 1rem 0;
+      padding: 1rem 0 0;
     }
 
     &__name {
@@ -95,7 +95,7 @@
 
     &__btn {
       width: 100%;
-      font-size: $fs-xl;
+      font-size: $fs-l;
       padding: 1rem 2rem;
       display: flex;
       justify-content: center;
@@ -122,7 +122,7 @@
 
       &-cta {
         width: 100%;
-        font-size: $fs-l;
+        font-size: $fs-default;
         padding: 1rem 2rem;
         display: flex;
         justify-content: center;

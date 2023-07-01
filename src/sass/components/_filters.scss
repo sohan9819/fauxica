@@ -119,36 +119,49 @@
       height: 1rem;
       background: rgb(209, 209, 209);
       outline: none;
-    }
 
-    &-input::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 2.4rem;
-      height: 2.4rem;
-      background: $color-primary;
-      cursor: pointer;
-      border-radius: 50%;
-    }
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 2.4rem;
+        height: 2.4rem;
+        background: $color-primary;
+        cursor: pointer;
+        border-radius: 50%;
+      }
 
-    &-input::-moz-range-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      border: none; /* firefox needs this */
-      width: 0.5rem;
-      height: 0.5rem;
-      background: $color-primary;
-      cursor: pointer;
-      border-radius: 50%;
-      outline: 1rem solid teal;
-    }
+      &::-webkit-slider-runnable-track {
+        -webkit-appearance: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+      }
 
-    /* progress (before knob) within Firefox */
-    &-input::-moz-range-progress {
-      background: $color-primary;
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-      height: 1rem;
+      &::-webkit-progress-value {
+        background: $color-primary;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        height: 1rem;
+      }
+
+      &::-moz-range-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        border: none; /* firefox needs this */
+        width: 2.4rem;
+        height: 2.4rem;
+        background: $color-primary;
+        cursor: pointer;
+        border-radius: 50%;
+      }
+
+      /* progress (before knob) within Firefox */
+      &::-moz-range-progress {
+        background: $color-primary;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        height: 1rem;
+      }
     }
   }
 

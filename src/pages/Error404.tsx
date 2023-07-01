@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import Ghost from '../assets/ghost-img.png';
-import Transition from '../utils/motion';
+import { Transition } from '../components';
 
 const Error404 = () => {
   return (

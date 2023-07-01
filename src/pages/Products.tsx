@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { FiSearch, FiList } from 'react-icons/fi';
-import { ProductCard } from '../components';
-import Filters from '../components/Filters';
-import Transition from '../utils/motion';
+import { ProductCard, Transition, Filters } from '../components';
 
 const Products = () => {
   const [filterActive, setFilterActive] = useState(false);

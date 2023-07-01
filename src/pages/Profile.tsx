@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
-import Transition from '../utils/motion';
+import { Transition } from '../components';
 
 const Profile = () => {
   return (

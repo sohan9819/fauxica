@@ -1,7 +1,6 @@
 import { FiArrowRight } from 'react-icons/fi';
-import { ProductCard } from '../components';
+import { Transition, ProductCard } from '../components';
 import { Link } from 'react-router-dom';
-import Transition from '../utils/motion';
 
 const Wishlist = () => {
   return (
