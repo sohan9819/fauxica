@@ -49,6 +49,12 @@
     max-width: 60rem;
     padding: 2rem;
     border-radius: 2rem;
+
+    &-error {
+      font-size: $fs-xs;
+      color: $color-red;
+      width: 100%;
+    }
   }
 
   &__required {
@@ -84,7 +90,8 @@
     display: inline-flex;
     justify-content: start;
     align-items: center;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: 0rem 1rem;
     font-size: $fs-s;
     cursor: pointer;
 

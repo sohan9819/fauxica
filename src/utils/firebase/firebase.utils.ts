@@ -18,27 +18,28 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firestore
 const db = getFirestore();
 
 // Auth Provider : GOOGLE
-const googlAuthProvider = new GoogleAuthProvider();
-googlAuthProvider.setCustomParameters({
+const googleAuthProvider = new GoogleAuthProvider();
+googleAuthProvider.setCustomParameters({
   prompt: 'select_account',
 });
 
 export const auth = getAuth();
 export const signInWithGooglePopup = () =>
-  signInWithPopup(auth, googlAuthProvider);
+  signInWithPopup(auth, googleAuthProvider);
 
-export const createUserDocFromGoogleAuth = async (userAuth: User) => {
-  const userDocRef = doc(db, 'users', userAuth.uid);
+export const createUserDocFromAuth = async (user: User) => {
+  const userDocRef = doc(db, 'users', user.uid);
   const userSnapShot = await getDoc(userDocRef);
 
   if (!userSnapShot.exists()) {
-    const { displayName, email } = userAuth;
+    const { displayName, email } = user;
     const createdAt = new Date();
 
     try {

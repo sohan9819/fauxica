@@ -4,15 +4,17 @@ import { FcGoogle } from 'react-icons/fc';
 import { BsGithub } from 'react-icons/bs';
 import {
   signInWithGooglePopup,
-  createUserDocFromGoogleAuth,
+  createUserDocFromAuth,
 } from '../utils/firebase/firebase.utils';
 
+type AuthOption = 'SignIn' | 'SignUp';
+
 const Auth = () => {
-  const [authOption, setAuthOption] = useState<'SignIn' | 'SignUp'>('SignIn');
+  const [authOption, setAuthOption] = useState<AuthOption>('SignIn');
 
   const authGoogleUser = async () => {
     const { user } = await signInWithGooglePopup();
-    await createUserDocFromGoogleAuth(user);
+    await createUserDocFromAuth(user);
   };
 
   return (
