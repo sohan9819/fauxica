@@ -18,8 +18,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const app = initializeApp(firebaseConfig);
+// const app = initializeApp(firebaseConfig);
+// TODO : This is temp fix , fix this error afterwards
+initializeApp(firebaseConfig);
 
 // Initialize Firestore
 const db = getFirestore();
