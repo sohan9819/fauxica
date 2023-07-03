@@ -2,9 +2,18 @@ import { useState } from 'react';
 import { Transition, SignInForm, SignUpForm } from '../components';
 import { FcGoogle } from 'react-icons/fc';
 import { BsGithub } from 'react-icons/bs';
+import {
+  signInWithGooglePopup,
+  createUserDocFromGoogleAuth,
+} from '../utils/firebase/firebase.utils';
 
 const Auth = () => {
   const [authOption, setAuthOption] = useState<'SignIn' | 'SignUp'>('SignIn');
+
+  const authGoogleUser = async () => {
+    const { user } = await signInWithGooglePopup();
+    await createUserDocFromGoogleAuth(user);
+  };
 
   return (
     <>
@@ -14,7 +23,7 @@ const Auth = () => {
         </h1>
         <section className='auth__container'>
           <div className='auth__social'>
-            <button className='auth__social-btn'>
+            <button className='auth__social-btn' onClick={authGoogleUser}>
               <FcGoogle className='auth__social-icon' />
             </button>
             <button className='auth__social-btn'>

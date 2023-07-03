@@ -53,10 +53,15 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li className='nav__link'>
+            <NavLink className='link' to={'/auth'}>
+              SignIn
+            </NavLink>
+          </li>
+          {/* <li className='nav__link'>
             <NavLink className='link' to={'/profile'}>
               Profile
             </NavLink>
-          </li>
+          </li> */}
         </ul>
 
         <div
