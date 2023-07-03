@@ -1,9 +1,18 @@
-import { NavLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { navVariants } from '../utils/motion';
 import Logo from '../assets/logo.svg';
 
 const Navbar = () => {
+  const [isNavActive, setIsNavActive] = useState(false);
+
+  useEffect(() => {
+    document.addEventListener('click', () => {
+      setIsNavActive(isNavActive ? !isNavActive : isNavActive);
+    });
+  }, [isNavActive]);
+
   return (
     <motion.header
       className='header'
@@ -12,11 +21,17 @@ const Navbar = () => {
       whileInView='show'
       viewport={{ once: true }}
     >
-      <div className='logo'>
+      <Link to={'/'} className='logo'>
         <img src={Logo} alt='Fauxica Logo' className='logo__image' />
-      </div>
-      <nav className='nav'>
-        <ul className='nav__links'>
+      </Link>
+      <nav
+        className='nav'
+        onClick={(e) => {
+          setIsNavActive(!isNavActive);
+          e.stopPropagation();
+        }}
+      >
+        <ul className={`nav__links ${isNavActive ? 'active' : ''}`}>
           <li className='nav__link'>
             <NavLink className='link' to={'/'}>
               Home
@@ -43,12 +58,18 @@ const Navbar = () => {
             </NavLink>
           </li>
         </ul>
+
+        <div
+          className={`nav__hamburger ${isNavActive ? 'active' : ''}`}
+          onClick={() => {
+            setIsNavActive(!isNavActive);
+          }}
+        >
+          <div className='nav__hamburger-line line1'></div>
+          <div className='nav__hamburger-line line2'></div>
+          <div className='nav__hamburger-line line3'></div>
+        </div>
       </nav>
-      {/* <div className='hamburger'>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div> */}
     </motion.header>
   );
 };

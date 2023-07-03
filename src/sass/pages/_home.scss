@@ -94,6 +94,10 @@
     padding: 0rem 2rem 4rem;
     margin: 0rem 2rem;
 
+    @include respond(phone) {
+      display: none;
+    }
+
     &__card {
       border-radius: 0.8em;
       padding: 1.1em;

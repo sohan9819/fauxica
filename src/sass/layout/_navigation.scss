@@ -9,6 +9,10 @@
   align-items: center;
   padding: 0 2rem;
 
+  @include respond(phone) {
+    padding: 0;
+  }
+
   .logo {
     width: 100%;
     max-width: 15rem;
@@ -18,17 +22,52 @@
       width: 100%;
       max-height: 100%;
     }
+
+    @include respond(phone) {
+      max-width: 10rem;
+    }
   }
 
   .nav {
     width: 100%;
     max-width: 60rem;
     margin: 4em;
+    position: relative;
+
+    @include respond(phone) {
+      width: max-content;
+      margin: 2rem;
+    }
 
     &__links {
       display: flex;
       justify-content: space-evenly;
       gap: 4.1rem;
+
+      @include respond(phone) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: absolute;
+        height: 40rem;
+        width: calc(100vw - 15rem);
+        max-width: 40rem;
+        top: 4rem;
+        right: 4rem;
+        background: $color-white;
+        color: $color-black;
+        border-radius: 1rem;
+        transition: all 200ms ease-in-out;
+        transform: scale(0);
+        transform-origin: top right;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+        &.active {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
     }
 
     &__link {
@@ -56,6 +95,51 @@
 
       &:hover:before {
         width: 35%;
+      }
+    }
+
+    &__hamburger {
+      width: 5rem;
+      height: 5rem;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      display: none;
+      cursor: pointer;
+
+      @include respond(phone) {
+        display: flex;
+      }
+
+      &-line {
+        width: 3rem;
+        height: 0.3rem;
+        border-radius: 1rem;
+        background: $color-black;
+        position: absolute;
+        transition: all 200ms ease-in-out;
+
+        &.line1 {
+          transform: translateY(-1rem);
+        }
+        &.line3 {
+          transform: translateY(1rem);
+        }
+      }
+
+      // &:hover,
+      // &:focus,
+      &.active {
+        & .line1 {
+          transform: translateY(0) rotate(45deg);
+        }
+        & .line2 {
+          transform: translateX(0.6rem);
+          opacity: 0;
+        }
+        & .line3 {
+          transform: translateY(0) rotate(-45deg);
+        }
       }
     }
   }
