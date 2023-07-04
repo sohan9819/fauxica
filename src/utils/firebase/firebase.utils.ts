@@ -3,7 +3,13 @@ import { initializeApp } from 'firebase/app';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import { User } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
@@ -56,3 +62,18 @@ export const createUserDocFromAuth = async (user: User) => {
 
   return userDocRef;
 };
+
+type AuthUser = {
+  email: string;
+  password: string;
+};
+
+export const createAuthUserWithEmailAndPassword = async ({
+  email,
+  password,
+}: AuthUser) => await createUserWithEmailAndPassword(auth, email, password);
+
+export const signInAuthUserWithEmailAndPassword = async ({
+  email,
+  password,
+}: AuthUser) => await signInWithEmailAndPassword(auth, email, password);

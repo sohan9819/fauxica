@@ -1,5 +1,11 @@
+import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocFromAuth,
+} from '../utils/firebase/firebase.utils';
+import { FirebaseError } from 'firebase/app';
 
 type FormInputs = {
   displayName: string;
@@ -17,10 +23,31 @@ const SignUpForm = () => {
     formState: { errors },
     control,
     reset,
-  } = useForm<FormInputs>();
+  } = useForm<FormInputs>({});
 
-  const onSubmitHandler: SubmitHandler<FormInputs> = (data) => {
-    console.log(data);
+  const [authLoading, setAuthLoading] = useState(false);
+  const [authError, setAuthError] = useState('');
+
+  const onSubmitHandler: SubmitHandler<FormInputs> = async ({
+    displayName,
+    email,
+    password,
+  }) => {
+    setAuthLoading(true);
+    try {
+      const { user } = await createAuthUserWithEmailAndPassword({
+        email,
+        password,
+      });
+      await createUserDocFromAuth({ ...user, displayName });
+    } catch (error) {
+      const e = error as FirebaseError;
+      setAuthLoading(false);
+      e.code === 'auth/email-already-in-use'
+        ? setAuthError('User with same email already exists')
+        : setAuthError(e.message);
+    }
+    setAuthLoading(false);
     reset();
   };
 
@@ -30,22 +57,30 @@ const SignUpForm = () => {
         className='auth__form'
         onSubmit={handleSubmit(onSubmitHandler)}
         noValidate
+        onChange={() => setAuthError('')}
       >
         <h2>SignUp</h2>
+
+        {authLoading && <p className='auth__form-loading'>Authenticating...</p>}
+        {authError !== '' && (
+          <p className='auth__form-error auth-error'>{authError}</p>
+        )}
+
         <label className='auth__username' htmlFor='username'>
           Username &nbsp;<span className='auth__required'>*</span>
           <input
             className='auth__username-input'
             type='text'
             id='username'
+            placeholder='Username'
             {...register('displayName', {
               required: 'Username is required',
               minLength: {
                 value: 3,
                 message: 'Username should be at least 3 characters',
               },
+              disabled: authLoading,
             })}
-            placeholder='Username'
           />
           <p className='auth__form-error'>{errors.displayName?.message}</p>
         </label>
@@ -61,6 +96,7 @@ const SignUpForm = () => {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                 message: 'invalid email address',
               },
+              disabled: authLoading,
             })}
             placeholder='Email'
           />
@@ -84,10 +120,12 @@ const SignUpForm = () => {
                 message: 'Password cannot exceed more than 12 characters',
               },
               pattern: {
-                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/,
+                value:
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,12}$/,
                 message:
-                  'Your password must contain at least one uppercase, one lowercase, and one number',
+                  'Your password must contain at least one uppercase, one lowercase, one number and one special character',
               },
+              disabled: authLoading,
             })}
           />
           <p className='auth__form-error'>{errors.password?.message}</p>
@@ -105,6 +143,7 @@ const SignUpForm = () => {
                 watch('password') !== val
                   ? 'Your passwords do not match'
                   : true,
+              disabled: authLoading,
             })}
           />
           <p className='auth__form-error'>{errors.confirmPassword?.message}</p>
@@ -115,6 +154,7 @@ const SignUpForm = () => {
             type='checkbox'
             {...register('terms', {
               required: 'You need to agree all terms and condition',
+              disabled: authLoading,
             })}
             id='terms'
           />
@@ -123,7 +163,12 @@ const SignUpForm = () => {
           <p className='auth__form-error'>{errors.terms?.message}</p>
         </label>
 
-        <button className='auth__btn' type='submit' role='button'>
+        <button
+          className='auth__btn'
+          type='submit'
+          role='button'
+          disabled={authLoading}
+        >
           SignUp
         </button>
       </form>

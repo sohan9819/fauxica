@@ -54,6 +54,15 @@
       font-size: $fs-xs;
       color: $color-red;
       width: 100%;
+
+      &.auth-error {
+        font-size: $fs-s;
+      }
+    }
+
+    &-loading {
+      font-size: $fs-s;
+      color: $color-orange;
     }
   }
 
