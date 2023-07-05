@@ -1,10 +1,26 @@
 import { useState } from 'react';
 import { Transition, SignInForm, SignUpForm } from '../components';
 import { FcGoogle } from 'react-icons/fc';
-import { BsGithub } from 'react-icons/bs';
+import {
+  signInWithGooglePopup,
+  createUserDocFromAuth,
+} from '../utils/firebase/firebase.utils';
+import { FirebaseError } from 'firebase/app';
+
+type AuthOption = 'SignIn' | 'SignUp';
 
 const Auth = () => {
-  const [authOption, setAuthOption] = useState<'SignIn' | 'SignUp'>('SignIn');
+  const [authOption, setAuthOption] = useState<AuthOption>('SignIn');
+
+  const authGoogleUser = async () => {
+    try {
+      const { user } = await signInWithGooglePopup();
+      await createUserDocFromAuth(user);
+    } catch (error) {
+      const e = error as FirebaseError;
+      alert(e.message);
+    }
+  };
 
   return (
     <>
@@ -14,11 +30,8 @@ const Auth = () => {
         </h1>
         <section className='auth__container'>
           <div className='auth__social'>
-            <button className='auth__social-btn'>
+            <button className='auth__social-btn' onClick={authGoogleUser}>
               <FcGoogle className='auth__social-icon' />
-            </button>
-            <button className='auth__social-btn'>
-              <BsGithub className='auth__social-icon' />
             </button>
           </div>
           {authOption === 'SignIn' && <SignInForm />}

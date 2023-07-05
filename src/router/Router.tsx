@@ -1,4 +1,4 @@
-import { useRoutes, useLocation } from 'react-router-dom';
+import { useRoutes, useLocation, Navigate } from 'react-router-dom';
 import {
   Home,
   Products,
@@ -10,9 +10,11 @@ import {
 } from '../pages';
 import { cloneElement } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import { useAuthContext } from '../context';
 
 const Router = () => {
   const location = useLocation();
+  const { user } = useAuthContext();
   const router = useRoutes([
     {
       path: '/',
@@ -27,19 +29,19 @@ const Router = () => {
         },
         {
           path: '/wishlist',
-          element: <Wishlist />,
+          element: user ? <Wishlist /> : <Navigate to={'/auth'} />,
         },
         {
           path: '/cart',
-          element: <Cart />,
+          element: user ? <Cart /> : <Navigate to={'/auth'} />,
         },
         {
           path: '/profile',
-          element: <Profile />,
+          element: user ? <Profile /> : <Navigate to={'/auth'} />,
         },
         {
           path: '/auth',
-          element: <Auth />,
+          element: user ? <Profile /> : <Auth />,
         },
         {
           path: '/*',

@@ -1,19 +1,112 @@
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import { Transition } from '../components';
+import { useAuthContext } from '../context';
+import { FirebaseError } from 'firebase/app';
+import { signOutUser, deleteUser } from '../utils/firebase/firebase.utils';
 
 const Profile = () => {
+  const { user } = useAuthContext();
+  const handleSignOut = async () => {
+    if (window.confirm('Are you sure you want to signOut?')) {
+      try {
+        await signOutUser();
+      } catch (error) {
+        alert((error as FirebaseError).message);
+      }
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (window.confirm('Are you sure you want to delete your account?')) {
+      try {
+        user && (await deleteUser(user));
+      } catch (error) {
+        const e = error as FirebaseError;
+        console.log('Code ', e.code);
+        console.log('Name ', e.name);
+        console.log('Message ', e.message);
+
+        switch (e.code) {
+          case 'auth/requires-recent-login':
+            alert(
+              'To delete your account you need a recent login , please logout and login again'
+            );
+            break;
+
+          default:
+            alert(e.message);
+            break;
+        }
+      }
+    }
+  };
+
   return (
     <>
       <main className='section'>
         <h1 className='section__title'>Profile🤠 </h1>
-        <p className='section__empty'>
-          You need to Login to view your profile ☹️ <br />
-          <Link to={'/auth'} className='section__empty-cta'>
-            <span>SiginIn</span>
-            <FiArrowRight className='section__empty-cta-icon' />
-          </Link>
-        </p>
+        {user ? (
+          <div className='profile'>
+            <div className='profile__user'>
+              <p className='profile__user__name'>
+                <span className='profile__user__label'>Name</span>
+                <span className='profile__user__text'>{user.displayName}</span>
+              </p>
+              <p className='profile__user__email'>
+                <span className='profile__user__label'>Email</span>
+                <span className='profile__user__text'>{user.email}</span>
+              </p>
+              <div className='profile__user__btns'>
+                <button
+                  className='profile__user__btns-btn'
+                  onClick={handleSignOut}
+                >
+                  SignOut
+                </button>
+                <button
+                  className='profile__user__btns-btn'
+                  onClick={handleDeleteAccount}
+                >
+                  Delete Account
+                </button>
+              </div>
+            </div>
+            <div className='profile__summary'>
+              <div className='profile__summary__cart'>
+                <p className='profile__summary__cart-label'>Cart Items 🛒</p>
+                <strong className='profile__summary__cart-number'>0</strong>
+                <button className='profile__summary__cart-btn'>
+                  Check now
+                </button>
+              </div>
+              <div className='profile__summary__wish'>
+                <p className='profile__summary__wish-label'>Wish Items 💖</p>
+                <strong className='profile__summary__wish-number'>0</strong>
+                <button className='profile__summary__wish-btn'>
+                  Check now
+                </button>
+              </div>
+              <div className='profile__summary__order'>
+                <p className='profile__summary__order-label'>
+                  Total Orders 📦{' '}
+                </p>
+                <strong className='profile__summary__order-number'>0</strong>
+                <button className='profile__summary__order-btn'>
+                  Check now
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <p className='section__empty'>
+            You need to Login to view your profile ☹️ <br />
+            <Link to={'/auth'} className='section__empty-cta'>
+              <span>SiginIn</span>
+              <FiArrowRight className='section__empty-cta-icon' />
+            </Link>
+          </p>
+        )}
       </main>
       <Transition />
     </>

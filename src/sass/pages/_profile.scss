@@ -1,0 +1,98 @@
+.profile {
+  width: 100%;
+  max-width: 60rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+
+  &__user {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 2rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 1rem;
+    gap: 1rem;
+
+    &__name,
+    &__email {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__label {
+      font-size: $fs-xs;
+      color: $color-gray;
+    }
+    &__text {
+      font-size: $fs-default;
+    }
+
+    &__btns {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+
+      &-btn {
+        padding: 1rem 2rem;
+        font-size: $fs-s;
+        color: $color-red;
+        border-radius: 1rem;
+
+        &:hover {
+          background: $color-red;
+          color: $color-white;
+        }
+      }
+    }
+  }
+
+  &__summary {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    &__cart,
+    &__wish,
+    &__order {
+      aspect-ratio: 1;
+      width: 25%;
+      min-width: 15rem;
+      min-height: 15rem;
+      border-radius: 1rem;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-direction: column;
+      padding: 1rem;
+
+      &-label {
+        color: $color-gray;
+        font-size: $fs-s;
+      }
+      &-number {
+        font-size: 5rem;
+      }
+      &-btn {
+        padding: 1rem 2rem;
+        font-size: $fs-xs;
+        border-radius: 1rem;
+        max-width: 100%;
+
+        &:hover {
+          background: $color-primary;
+          color: $color-white;
+        }
+
+        @include respond(phone) {
+          padding: 0.3rem 0.6rem;
+        }
+      }
+    }
+  }
+}
