@@ -3,11 +3,9 @@ import { Link, NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { navVariants } from '../utils/motion';
 import Logo from '../assets/logo.svg';
-import { useAuthContext } from '../context';
 
 const Navbar = () => {
   const [isNavActive, setIsNavActive] = useState(false);
-  const { user } = useAuthContext();
 
   useEffect(() => {
     document.addEventListener('click', () => {
@@ -54,19 +52,11 @@ const Navbar = () => {
               Cart
             </NavLink>
           </li>
-          {user ? (
-            <li className='nav__link'>
-              <NavLink className='link' to={'/profile'}>
-                Profile
-              </NavLink>
-            </li>
-          ) : (
-            <li className='nav__link'>
-              <NavLink className='link' to={'/auth'}>
-                SignIn
-              </NavLink>
-            </li>
-          )}
+          <li className='nav__link'>
+            <NavLink className='link' to={'/profile'}>
+              Profile
+            </NavLink>
+          </li>
         </ul>
 
         <div
