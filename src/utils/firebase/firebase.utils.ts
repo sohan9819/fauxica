@@ -9,9 +9,17 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
 } from 'firebase/auth';
 import { User } from 'firebase/auth';
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  deleteDoc,
+} from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -77,3 +85,18 @@ export const signInAuthUserWithEmailAndPassword = async ({
   email,
   password,
 }: AuthUser) => await signInWithEmailAndPassword(auth, email, password);
+
+type AuthStateChangeCallback = (user: User | null) => void;
+
+export const onAuthStateChangedHandler = (
+  callback: AuthStateChangeCallback
+) => {
+  return onAuthStateChanged(auth, callback);
+};
+
+export const signOutUser = async () => await signOut(auth);
+
+export const deleteUser = async (user: User) => {
+  await deleteDoc(doc(db, 'users', user.uid));
+  await user.delete();
+};

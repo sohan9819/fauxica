@@ -5,6 +5,7 @@ import {
   signInWithGooglePopup,
   createUserDocFromAuth,
 } from '../utils/firebase/firebase.utils';
+import { FirebaseError } from 'firebase/app';
 
 type AuthOption = 'SignIn' | 'SignUp';
 
@@ -12,8 +13,13 @@ const Auth = () => {
   const [authOption, setAuthOption] = useState<AuthOption>('SignIn');
 
   const authGoogleUser = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocFromAuth(user);
+    try {
+      const { user } = await signInWithGooglePopup();
+      await createUserDocFromAuth(user);
+    } catch (error) {
+      const e = error as FirebaseError;
+      alert(e.message);
+    }
   };
 
   return (

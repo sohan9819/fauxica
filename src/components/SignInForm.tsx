@@ -25,17 +25,14 @@ const SignInForm = () => {
   }) => {
     setAuthLoading(true);
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword({
+      await signInAuthUserWithEmailAndPassword({
         email,
         password,
       });
-      console.log(user);
     } catch (error) {
       const e = error as FirebaseError;
+      reset();
       setAuthLoading(false);
-      // console.log('Code ', e.code);
-      // console.log('Name ', e.name);
-      // console.log('Message ', e.message);
       switch (e.code) {
         case 'auth/wrong-password':
           setAuthError('Incorrect password');
@@ -56,8 +53,6 @@ const SignInForm = () => {
           break;
       }
     }
-    reset();
-    setAuthLoading(false);
   };
 
   return (

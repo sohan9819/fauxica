@@ -4,6 +4,7 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocFromAuth,
 } from '../utils/firebase/firebase.utils';
+import { updateProfile } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 
 type FormInputs = {
@@ -37,16 +38,16 @@ const SignUpForm = () => {
         email,
         password,
       });
+      await updateProfile(user, { displayName });
       await createUserDocFromAuth({ ...user, displayName });
     } catch (error) {
       const e = error as FirebaseError;
+      reset();
       setAuthLoading(false);
       e.code === 'auth/email-already-in-use'
         ? setAuthError('User with same email already exists')
         : setAuthError(e.message);
     }
-    setAuthLoading(false);
-    reset();
   };
 
   return (
