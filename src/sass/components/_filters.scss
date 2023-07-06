@@ -104,56 +104,56 @@
     }
 
     &-input {
-      -webkit-appearance: none;
-      appearance: none;
+      // -webkit-appearance: none;
+      // appearance: none;
       border-radius: 10px;
       width: 75%;
       height: 1rem;
       background: rgb(209, 209, 209);
       outline: none;
 
-      &::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 2.4rem;
-        height: 2.4rem;
-        background: $color-primary;
-        cursor: pointer;
-        border-radius: 50%;
-      }
+      // &::-webkit-slider-thumb {
+      //   -webkit-appearance: none;
+      //   appearance: none;
+      //   width: 2.4rem;
+      //   height: 2.4rem;
+      //   background: $color-primary;
+      //   cursor: pointer;
+      //   border-radius: 50%;
+      // }
 
-      &::-webkit-slider-runnable-track {
-        -webkit-appearance: none;
-        box-shadow: none;
-        border: none;
-        background: transparent;
-      }
+      // &::-webkit-slider-runnable-track {
+      //   -webkit-appearance: none;
+      //   box-shadow: none;
+      //   border: none;
+      //   background: transparent;
+      // }
 
-      &::-webkit-progress-value {
-        background: $color-primary;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-        height: 1rem;
-      }
+      // &::-webkit-progress-value {
+      //   background: $color-primary;
+      //   border-top-left-radius: 10px;
+      //   border-bottom-left-radius: 10px;
+      //   height: 1rem;
+      // }
 
-      &::-moz-range-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        border: none; /* firefox needs this */
-        width: 2.4rem;
-        height: 2.4rem;
-        background: $color-primary;
-        cursor: pointer;
-        border-radius: 50%;
-      }
+      // &::-moz-range-thumb {
+      //   -webkit-appearance: none;
+      //   appearance: none;
+      //   border: none; /* firefox needs this */
+      //   width: 2.4rem;
+      //   height: 2.4rem;
+      //   background: $color-primary;
+      //   cursor: pointer;
+      //   border-radius: 50%;
+      // }
 
-      /* progress (before knob) within Firefox */
-      &::-moz-range-progress {
-        background: $color-primary;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-        height: 1rem;
-      }
+      // /* progress (before knob) within Firefox */
+      // &::-moz-range-progress {
+      //   background: $color-primary;
+      //   border-top-left-radius: 10px;
+      //   border-bottom-left-radius: 10px;
+      //   height: 1rem;
+      // }
     }
   }
 

@@ -10,39 +10,37 @@ import {
   FaHeartCircleMinus,
   FaHeartCirclePlus,
 } from 'react-icons/fa6';
-import { FiDollarSign } from 'react-icons/fi';
 import { AiFillStar } from 'react-icons/ai';
+import { Product } from '../utils/types';
 
 type ProductCardProps = {
   variant?: 'default' | 'cart' | 'wish';
+  product: Product;
 };
 
-const ProductCard = ({ variant = 'default' }: ProductCardProps) => {
+const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
   const [cartAdded, setCartAdded] = useState(false);
   const [wishAdded, setWishAdded] = useState(false);
 
   return (
     <article className='product__card'>
-      <img
-        src='https://images.unsplash.com/photo-1687893641851-3d9946c661e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=388&q=80'
-        alt=''
-        className='card__image'
-      />
+      <img src={product.imageUrl} alt='' className='card__image' />
       <div className='card__info'>
-        <h3 className='card__name'>Product Name</h3>
-        <p className='card__description'>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. In...
-        </p>
+        <h3 className='card__name'>{product.name}</h3>
+        <p className='card__category'>{product.category}</p>
         <div className='card__stats'>
           <h4 className='card__stats-price'>
-            <FiDollarSign />
-            100
+            {product.price.toLocaleString('hi-IN', {
+              style: 'currency',
+              currency: 'INR',
+            })}
           </h4>
           <p className='card__stats__rating'>
             <strong className='card__stats__rating-rate'>
-              4.6 <AiFillStar className='card__stats__rating-rate-icon' />
+              {product.rating.rate}{' '}
+              <AiFillStar className='card__stats__rating-rate-icon' />
             </strong>
-            10,00
+            {product.rating.count}
           </p>
         </div>
         {variant === 'cart' && (

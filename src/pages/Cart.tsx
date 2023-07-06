@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
-import { Transition, ProductCard } from '../components';
+import { Transition } from '../components';
 
 const Cart = () => {
   return (
@@ -54,13 +54,13 @@ const Cart = () => {
           </tfoot>
         </table>
         <div className='cart__container'>
+          {/* <ProductCard variant='cart' />
           <ProductCard variant='cart' />
           <ProductCard variant='cart' />
           <ProductCard variant='cart' />
           <ProductCard variant='cart' />
           <ProductCard variant='cart' />
-          <ProductCard variant='cart' />
-          <ProductCard variant='cart' />
+          <ProductCard variant='cart' /> */}
         </div>
       </main>
       <Transition />

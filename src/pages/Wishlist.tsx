@@ -1,5 +1,5 @@
 import { FiArrowRight } from 'react-icons/fi';
-import { Transition, ProductCard } from '../components';
+import { Transition } from '../components';
 import { Link } from 'react-router-dom';
 
 const Wishlist = () => {
@@ -15,11 +15,11 @@ const Wishlist = () => {
           </Link>
         </p>
         <div className='wishlist__container'>
+          {/* <ProductCard variant='wish' />
           <ProductCard variant='wish' />
           <ProductCard variant='wish' />
           <ProductCard variant='wish' />
-          <ProductCard variant='wish' />
-          <ProductCard variant='wish' />
+          <ProductCard variant='wish' /> */}
         </div>
       </main>
       <Transition />
