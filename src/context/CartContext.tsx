@@ -1,4 +1,4 @@
-import { useReducer, createContext, useContext, useEffect } from 'react';
+import { useReducer, createContext, useContext } from 'react';
 import {
   CartProduct,
   CartContextProviderProps,
@@ -47,10 +47,6 @@ const CartContextProvider = ({ children }: CartContextProviderProps) => {
   const isProductInCart = (uuid: string): boolean => {
     return state.findIndex((prod) => prod.uuid === uuid) !== -1 ? true : false;
   };
-
-  useEffect(() => {
-    console.log('Cart State ', state);
-  }, [state]);
 
   return (
     <CartContext.Provider
