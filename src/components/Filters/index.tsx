@@ -3,6 +3,7 @@ import PriceFilter from './PriceFilter';
 import SortFilter from './SortFilter';
 import RatingFilter from './RatingFilter';
 import SearchFilter from './SearchFilter';
+import ResetFilter from './ResetFilter';
 
 import { useState } from 'react';
 import { FiList } from 'react-icons/fi';
@@ -26,12 +27,15 @@ const Filters = () => {
         </button>
       </div>
       {filterActive && (
-        <div className='filter'>
-          <CategoryFilter />
-          <PriceFilter />
-          <SortFilter />
-          <RatingFilter />
-        </div>
+        <>
+          <div className='filter'>
+            <ResetFilter />
+            <CategoryFilter />
+            <PriceFilter />
+            <SortFilter />
+            <RatingFilter />
+          </div>
+        </>
       )}
     </>
   );

@@ -1,11 +1,21 @@
-import React, {
+import {
   useState,
   useContext,
   createContext,
   useEffect,
   useReducer,
 } from 'react';
-import { ProductsList } from '../utils/types';
+import {
+  InitialStateType,
+  ProductContextProviderProps,
+  ProductsList,
+  Category,
+  Sort,
+  RatingOption,
+  FilterState,
+  ActionType,
+  Action,
+} from '../utils/types';
 import { getProductCollection } from '../utils/firebase/firebase.utils';
 import {
   productsFilter,
@@ -16,49 +26,12 @@ import {
   sortFilter,
 } from '../utils/filters';
 
-type ProductContextProviderProps = {
-  children: React.ReactNode;
-};
-
-type InitialStateType = {
-  products: ProductsList;
-  filterState: FilterState;
-  filterDispatch: React.Dispatch<Action>;
-};
-
-type Category = 'Hats' | 'Jackets' | 'Sneakers' | 'Mens' | 'Womens';
-
-enum Sort {
-  NONE = 'none',
-  ASC = 'asc',
-  DSC = 'dsc',
-}
-
-type FilterState = {
-  search: string;
-  category: Category[];
-  price: number;
-  sort: Sort;
-};
-
-enum ActionType {
-  UPDATE_SEARCH,
-  UPDATE_CATEGORY,
-  UPDATE_PRICE,
-  UPDATE_SORT,
-  RESET,
-}
-
-type Action = {
-  type: ActionType;
-  payload: Sort | Category | string | number;
-};
-
 const initialState = {
   search: '',
   category: [] as Category[],
   price: 3500,
   sort: Sort.NONE,
+  rating: RatingOption.NONE,
 };
 
 const ProductContext = createContext({} as InitialStateType);
@@ -73,11 +46,27 @@ const ProductContextProvider = ({ children }: ProductContextProviderProps) => {
       case ActionType.UPDATE_SEARCH:
         return { ...state, search: payload as string };
       case ActionType.UPDATE_CATEGORY:
-        return { ...state };
+        return state.category.includes(payload as Category)
+          ? {
+              ...state,
+              category: state.category.filter((cat) => cat !== payload),
+            }
+          : {
+              ...state,
+              category: [
+                ...new Set([...state.category, payload]),
+              ] as Category[],
+            };
+
+      case ActionType.UPDATE_USER_CATEGORY:
+        return { ...state, category: [payload as Category] };
+
       case ActionType.UPDATE_PRICE:
         return { ...state, price: payload as number };
       case ActionType.UPDATE_SORT:
         return { ...state, sort: payload as Sort };
+      case ActionType.UPDATE_RATING:
+        return { ...state, rating: payload as RatingOption };
       case ActionType.RESET:
         return { ...initialState };
       default:
@@ -112,5 +101,4 @@ const ProductContextProvider = ({ children }: ProductContextProviderProps) => {
 
 const useProductContext = () => useContext(ProductContext);
 
-export { ProductContextProvider, useProductContext, ActionType, Sort };
-export type { FilterState };
+export { ProductContextProvider, useProductContext };

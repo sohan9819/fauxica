@@ -1,4 +1,16 @@
+import { Category, ActionType } from '../../utils/types';
+import { useProductContext } from '../../context/ProductContext';
+
 const CategoryFilter = () => {
+  const { filterState, filterDispatch } = useProductContext();
+
+  const categoryHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    filterDispatch({
+      type: ActionType.UPDATE_CATEGORY,
+      payload: e.target.value,
+    });
+  };
+
   return (
     <div className='filter__category'>
       <h2 className='filter__category-title'>Category</h2>
@@ -9,8 +21,11 @@ const CategoryFilter = () => {
             id='category-1'
             name='category-1'
             className='filter__category-input'
+            value={Category.Hats}
+            checked={filterState.category.includes(Category.Hats)}
+            onChange={categoryHandler}
           />
-          Category-1
+          {Category.Hats}
         </label>
         <label htmlFor='category-2' className='filter__category-label'>
           <input
@@ -18,8 +33,11 @@ const CategoryFilter = () => {
             id='category-2'
             name='category-2'
             className='filter__category-input'
+            value={Category.Jackets}
+            checked={filterState.category.includes(Category.Jackets)}
+            onChange={categoryHandler}
           />
-          Category-2
+          {Category.Jackets}
         </label>
         <label htmlFor='category-3' className='filter__category-label'>
           <input
@@ -27,8 +45,11 @@ const CategoryFilter = () => {
             id='category-3'
             name='category-3'
             className='filter__category-input'
+            value={Category.Sneakers}
+            checked={filterState.category.includes(Category.Sneakers)}
+            onChange={categoryHandler}
           />
-          Category-3
+          {Category.Sneakers}
         </label>
         <label htmlFor='category-4' className='filter__category-label'>
           <input
@@ -36,8 +57,11 @@ const CategoryFilter = () => {
             id='category-4'
             name='category-4'
             className='filter__category-input'
+            value={Category.Mens}
+            checked={filterState.category.includes(Category.Mens)}
+            onChange={categoryHandler}
           />
-          Category-4
+          {Category.Mens}
         </label>
         <label htmlFor='category-5' className='filter__category-label'>
           <input
@@ -45,8 +69,11 @@ const CategoryFilter = () => {
             id='category-5'
             name='category-5'
             className='filter__category-input'
+            value={Category.Womens}
+            checked={filterState.category.includes(Category.Womens)}
+            onChange={categoryHandler}
           />
-          Category-5
+          {Category.Womens}
         </label>
       </div>
     </div>

@@ -1,41 +1,18 @@
-import { User } from 'firebase/auth';
-
-// <--------------Auth-------------->
-type AuthUser = {
-  email: string;
-  password: string;
-};
-
-type AuthStateChangeCallback = (user: User | null) => void;
-
-// <--------------Products-------------->
-enum Categories {
-  Hats = 'Hats',
-  Jackets = 'Jackets',
-  Sneakers = 'Sneakers',
-  Mens = 'Mens',
-  Womens = 'Womens',
-}
-
-type Rating = {
-  rate: number;
-  count: number;
-};
-
-type ProductData = {
-  id: number;
-  name: string;
-  imageUrl: string;
-  price: number;
-  category: Categories;
-  rating: Rating;
-};
-
-type Product = ProductData & {
-  uuid: string;
-};
-
-type ProductsList = Product[];
+import { AuthUser, AuthStateChangeCallback } from './auth';
+import {
+  ProductData,
+  Product,
+  ProductsList,
+  Rating,
+  Category,
+  Sort,
+  RatingOption,
+  ProductContextProviderProps,
+  InitialStateType,
+  FilterState,
+  Action,
+  ActionType,
+} from './products';
 
 export type {
   AuthUser,
@@ -44,5 +21,9 @@ export type {
   Product,
   ProductsList,
   Rating,
-  Categories,
+  ProductContextProviderProps,
+  InitialStateType,
+  FilterState,
+  Action,
 };
+export { Category, Sort, RatingOption, ActionType };

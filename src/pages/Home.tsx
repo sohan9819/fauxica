@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Transition } from '../components';
+import { Transition, CategoryGallery } from '../components';
 import { motion } from 'framer-motion';
 import {
   textVariant_1,
@@ -52,69 +52,7 @@ const Home = () => {
             </motion.p>
           </motion.div>
         </div>
-        <motion.div
-          className='home__category'
-          variants={textVariant_1(0.1)}
-          initial='hidden'
-          whileInView='show'
-          viewport={{ once: true }}
-        >
-          <article className='home__category__card card-1'>
-            <div className='product__detail'>
-              <div className='product__info'>
-                <Link to={'#'} className='product__brand'>
-                  Fauxica Jackets
-                </Link>
-                <p className='product__category'>starting from</p>
-              </div>
-              <p className='product__price'>$49</p>
-            </div>
-          </article>
-          <article className='home__category__card card-2'>
-            <div className='product__detail'>
-              <div className='product__info'>
-                <Link to={'#'} className='product__brand'>
-                  Fauxica Sneakers
-                </Link>
-                <p className='product__category'>starting from</p>
-              </div>
-              <p className='product__price'>$49</p>
-            </div>
-          </article>
-          <article className='home__category__card card-3'>
-            <div className='product__detail'>
-              <div className='product__info'>
-                <Link to={'#'} className='product__brand'>
-                  Fauxica Hats
-                </Link>
-                <p className='product__category'>starting from</p>
-              </div>
-              <p className='product__price'>$49</p>
-            </div>
-          </article>
-          <article className='home__category__card card-4'>
-            <div className='product__detail'>
-              <div className='product__info'>
-                <Link to={'#'} className='product__brand'>
-                  Fauxica Mens
-                </Link>
-                <p className='product__category'>starting from</p>
-              </div>
-              <p className='product__price'>$49</p>
-            </div>
-          </article>
-          <article className='home__category__card card-5'>
-            <div className='product__detail'>
-              <div className='product__info'>
-                <Link to={'#'} className='product__brand'>
-                  Fauxica Womens
-                </Link>
-                <p className='product__category'>starting from</p>
-              </div>
-              <p className='product__price'>$49</p>
-            </div>
-          </article>
-        </motion.div>
+        <CategoryGallery />
       </motion.main>
       <Transition />
     </>

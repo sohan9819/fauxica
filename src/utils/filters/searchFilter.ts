@@ -1,5 +1,4 @@
-import { FilterState } from '../../context/ProductContext';
-import { ProductsList } from '../types';
+import { ProductsList, FilterState } from '../types';
 
 export const searchFilter = (
   products: ProductsList,

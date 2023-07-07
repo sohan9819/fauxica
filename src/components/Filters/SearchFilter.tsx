@@ -1,5 +1,6 @@
 import { FiSearch } from 'react-icons/fi';
-import { ActionType, useProductContext } from '../../context/ProductContext';
+import { useProductContext } from '../../context/ProductContext';
+import { ActionType } from '../../utils/types';
 
 const SearchFilter = () => {
   const { filterState, filterDispatch } = useProductContext();

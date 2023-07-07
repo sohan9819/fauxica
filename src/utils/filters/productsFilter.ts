@@ -1,4 +1,4 @@
-import { FilterState } from '../../context/ProductContext';
+import { FilterState } from '../types';
 import { ProductsList } from '../types';
 
 type InputFunction = (

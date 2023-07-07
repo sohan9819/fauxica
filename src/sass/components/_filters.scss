@@ -28,6 +28,27 @@
     }
   }
 
+  &__reset {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    &-btn {
+      width: 100%;
+      max-width: 20rem;
+      padding: 1rem 2rem;
+      font-size: $fs-default;
+      border-radius: 1rem;
+      color: $color-red;
+      background: $color-white;
+
+      &:hover {
+        color: $color-white;
+        background: $color-red;
+      }
+    }
+  }
+
   &__search {
     width: 100%;
     max-width: 80rem;

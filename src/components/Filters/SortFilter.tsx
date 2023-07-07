@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-  ActionType,
-  Sort,
-  useProductContext,
-} from '../../context/ProductContext';
+import { useProductContext } from '../../context/ProductContext';
+import { ActionType, Sort } from '../../utils/types';
 
 const SortFilter = () => {
   const { filterState, filterDispatch } = useProductContext();

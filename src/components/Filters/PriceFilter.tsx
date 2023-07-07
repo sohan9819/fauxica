@@ -1,5 +1,6 @@
 import React from 'react';
-import { useProductContext, ActionType } from '../../context/ProductContext';
+import { useProductContext } from '../../context/ProductContext';
+import { ActionType } from '../../utils/types';
 
 const PriceFilter = () => {
   const { filterState, filterDispatch } = useProductContext();

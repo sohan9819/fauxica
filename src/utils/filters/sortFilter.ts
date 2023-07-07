@@ -1,5 +1,4 @@
-import { FilterState, Sort } from '../../context/ProductContext';
-import { ProductsList } from '../types';
+import { ProductsList, FilterState, Sort } from '../types';
 
 export const sortFilter = (
   products: ProductsList,
