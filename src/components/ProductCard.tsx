@@ -4,23 +4,53 @@ import {
   BsFillCartCheckFill,
   BsCartDashFill,
 } from 'react-icons/bs';
-
 import {
   FaHeartCircleCheck,
   FaHeartCircleMinus,
   FaHeartCirclePlus,
 } from 'react-icons/fa6';
 import { AiFillStar } from 'react-icons/ai';
-import { Product } from '../utils/types';
+import { CartActionType, CartProduct, Product } from '../utils/types';
+import { useCartContext } from '../context/CartContext';
 
-type ProductCardProps = {
-  variant?: 'default' | 'cart' | 'wish';
-  product: Product;
-};
+type ProductCardProps =
+  | {
+      variant?: 'default';
+      product: Product;
+    }
+  | {
+      variant: 'cart';
+      product: CartProduct;
+    }
+  | {
+      variant: 'wish';
+      product: Product;
+    };
 
 const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
-  const [cartAdded, setCartAdded] = useState(false);
   const [wishAdded, setWishAdded] = useState(false);
+  const { cartDispatch, isProductInCart } = useCartContext();
+
+  const addToCart = () => {
+    cartDispatch({ type: CartActionType.ADD_TO_CART, payload: product });
+  };
+  const removeFromCart = () => {
+    cartDispatch({
+      type: CartActionType.REMOVE_FROM_CART,
+      payload: product.uuid,
+    });
+  };
+  const plusCart = () => {
+    cartDispatch({ type: CartActionType.PLUS, payload: product.uuid });
+  };
+  const minusCart = () => {
+    (product as CartProduct).count > 1
+      ? cartDispatch({ type: CartActionType.MINUS, payload: product.uuid })
+      : cartDispatch({
+          type: CartActionType.REMOVE_FROM_CART,
+          payload: product.uuid,
+        });
+  };
 
   return (
     <article className='product__card'>
@@ -45,26 +75,38 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
         </div>
         {variant === 'cart' && (
           <div className='card__quantity'>
-            <button className='card__quantity-minus'>-</button>
-            <span className='card__quantity-number'>1</span>
-            <button className='card__quantity-plus'>+</button>
+            <button className='card__quantity-minus' onClick={minusCart}>
+              -
+            </button>
+            <span className='card__quantity-number'>
+              {(product as CartProduct)?.count}
+            </span>
+            <button className='card__quantity-plus' onClick={plusCart}>
+              +
+            </button>
           </div>
         )}
         <div className='card__btns'>
           {variant === 'cart' ? (
-            <button className='card__btn card__btn__cart'>
-              <BsCartDashFill />
-            </button>
-          ) : (
             <button
               className='card__btn card__btn__cart'
-              onClick={() => {
-                setCartAdded((prev) => !prev);
-              }}
+              onClick={removeFromCart}
             >
-              {cartAdded ? <BsFillCartCheckFill /> : <BsFillCartPlusFill />}
+              <BsCartDashFill />
+            </button>
+          ) : isProductInCart(product.uuid) ? (
+            <button
+              className='card__btn card__btn__cart'
+              onClick={removeFromCart}
+            >
+              <BsFillCartCheckFill />
+            </button>
+          ) : (
+            <button className='card__btn card__btn__cart' onClick={addToCart}>
+              <BsFillCartPlusFill />
             </button>
           )}
+
           {variant === 'wish' ? (
             <button className='card__btn card__btn__heart'>
               <FaHeartCircleMinus />

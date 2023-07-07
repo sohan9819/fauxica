@@ -14,6 +14,15 @@ import {
   ActionType,
 } from './products';
 
+import {
+  CartProduct,
+  CartAction,
+  CartState,
+  CartContextState,
+  CartContextProviderProps,
+  CartActionType,
+} from './cart';
+
 export type {
   AuthUser,
   AuthStateChangeCallback,
@@ -25,5 +34,10 @@ export type {
   InitialStateType,
   FilterState,
   Action,
+  CartProduct,
+  CartAction,
+  CartState,
+  CartContextState,
+  CartContextProviderProps,
 };
-export { Category, Sort, RatingOption, ActionType };
+export { Category, Sort, RatingOption, ActionType, CartActionType };
