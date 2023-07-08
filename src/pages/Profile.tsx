@@ -1,11 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import { Transition } from '../components';
-import { useAuthContext } from '../context';
+import { useAuthContext, useWishContext, useCartContext } from '../context';
 import { FirebaseError } from 'firebase/app';
 import { signOutUser, deleteUser } from '../utils/firebase/firebase.utils';
-import { useCartContext } from '../context/CartContext';
-import { useWishContext } from '../context/WishContext';
 
 const Profile = () => {
   const { user } = useAuthContext();

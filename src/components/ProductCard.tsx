@@ -12,39 +12,40 @@ import { AiFillStar } from 'react-icons/ai';
 import {
   CartActionType,
   CartProduct,
-  Product,
+  ProductCardProps,
   WishActionType,
 } from '../utils/types';
-import { useCartContext } from '../context/CartContext';
-import { useWishContext } from '../context/WishContext';
+import { useAuthContext, useCartContext, useWishContext } from '../context';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 
-type ProductCardProps =
-  | {
-      variant?: 'default';
-      product: Product;
-    }
-  | {
-      variant: 'cart';
-      product: CartProduct;
-    }
-  | {
-      variant: 'wish';
-      product: Product;
-    };
-
 const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
+  const { user } = useAuthContext();
   const { cartDispatch, isProductInCart } = useCartContext();
   const { wishDispatch, isProductInWishlist } = useWishContext();
 
   const addToCart = () => {
-    toast.success(
-      <Link to={'/cart'}>
-        Added&nbsp;<strong>{product.name}</strong>&nbsp;to 🛒
-      </Link>
-    );
-    cartDispatch({ type: CartActionType.ADD_TO_CART, payload: product });
+    // toast.success(
+    //   <Link to={'/cart'}>
+    //     Added&nbsp;<strong>{product.name}</strong>&nbsp;to 🛒
+    //   </Link>
+    // );
+    // cartDispatch({ type: CartActionType.ADD_TO_CART, payload: product });
+    if (user) {
+      toast.success(
+        <Link to={'/cart'}>
+          Added&nbsp;<strong>{product.name}</strong>&nbsp;to 🛒
+        </Link>
+      );
+      cartDispatch({ type: CartActionType.ADD_TO_CART, payload: product });
+    } else {
+      toast.dismiss();
+      toast.error(
+        <Link to={'/auth'}>
+          Please&nbsp;<strong>SignIn</strong>
+        </Link>
+      );
+    }
   };
   const removeFromCart = () => {
     toast.success(
@@ -70,12 +71,27 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
   };
 
   const addToWishlist = () => {
-    toast.success(
-      <Link to={'/wishlist'}>
-        Added&nbsp;<strong>{product.name}</strong>&nbsp;to 💖
-      </Link>
-    );
-    wishDispatch({ type: WishActionType.ADD_TO_WISHLIST, payload: product });
+    // toast.success(
+    //   <Link to={'/wishlist'}>
+    //     Added&nbsp;<strong>{product.name}</strong>&nbsp;to 💖
+    //   </Link>
+    // );
+    // wishDispatch({ type: WishActionType.ADD_TO_WISHLIST, payload: product });
+    if (user) {
+      toast.success(
+        <Link to={'/wishlist'}>
+          Added&nbsp;<strong>{product.name}</strong>&nbsp;to 💖
+        </Link>
+      );
+      wishDispatch({ type: WishActionType.ADD_TO_WISHLIST, payload: product });
+    } else {
+      toast.dismiss();
+      toast.error(
+        <Link to={'/auth'}>
+          Please &nbsp;<strong>SignIn</strong>
+        </Link>
+      );
+    }
   };
 
   const removeFromWishlist = () => {
@@ -88,6 +104,19 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
       type: WishActionType.REMOVE_FROM_WISHLIST,
       payload: product.uuid,
     });
+  };
+
+  const buyNow = () => {
+    if (user) {
+      console.log('Buy now');
+    } else {
+      toast.dismiss();
+      toast.error(
+        <Link to={'/auth'}>
+          Please&nbsp;<strong>SignIn</strong>
+        </Link>
+      );
+    }
   };
 
   return (
@@ -124,6 +153,7 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
             </button>
           </div>
         )}
+
         <div className='card__btns'>
           {variant === 'cart' ? (
             <button
@@ -168,7 +198,9 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
             </button>
           )}
         </div>
-        <button className='card__btn-cta'>Buy Now</button>
+        <button className='card__btn-cta' onClick={buyNow}>
+          Buy Now
+        </button>
       </div>
     </article>
   );

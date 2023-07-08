@@ -12,6 +12,7 @@ import {
   FilterState,
   Action,
   ActionType,
+  ProductCardProps,
 } from './products';
 
 import {
@@ -36,6 +37,7 @@ export type {
   AuthStateChangeCallback,
   ProductData,
   Product,
+  ProductCardProps,
   ProductsList,
   Rating,
   ProductContextProviderProps,
