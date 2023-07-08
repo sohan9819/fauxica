@@ -5,10 +5,12 @@ import { useAuthContext } from '../context';
 import { FirebaseError } from 'firebase/app';
 import { signOutUser, deleteUser } from '../utils/firebase/firebase.utils';
 import { useCartContext } from '../context/CartContext';
+import { useWishContext } from '../context/WishContext';
 
 const Profile = () => {
   const { user } = useAuthContext();
   const { cartProducts } = useCartContext();
+  const { wishProducts } = useWishContext();
 
   const navigate = useNavigate();
 
@@ -95,8 +97,16 @@ const Profile = () => {
               </div>
               <div className='profile__summary__wish'>
                 <p className='profile__summary__wish-label'>Wish Items 💖</p>
-                <strong className='profile__summary__wish-number'>0</strong>
-                <button className='profile__summary__wish-btn'>
+                <strong className='profile__summary__wish-number'>
+                  {wishProducts.length}
+                </strong>
+                <button
+                  className='profile__summary__wish-btn'
+                  disabled={wishProducts.length <= 0}
+                  onClick={() => {
+                    navigate('/wishlist');
+                  }}
+                >
                   Check now
                 </button>
               </div>

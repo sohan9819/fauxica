@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   BsFillCartPlusFill,
   BsFillCartCheckFill,
@@ -10,8 +9,14 @@ import {
   FaHeartCirclePlus,
 } from 'react-icons/fa6';
 import { AiFillStar } from 'react-icons/ai';
-import { CartActionType, CartProduct, Product } from '../utils/types';
+import {
+  CartActionType,
+  CartProduct,
+  Product,
+  WishActionType,
+} from '../utils/types';
 import { useCartContext } from '../context/CartContext';
+import { useWishContext } from '../context/WishContext';
 
 type ProductCardProps =
   | {
@@ -28,8 +33,8 @@ type ProductCardProps =
     };
 
 const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
-  const [wishAdded, setWishAdded] = useState(false);
   const { cartDispatch, isProductInCart } = useCartContext();
+  const { wishDispatch, isProductInWishlist } = useWishContext();
 
   const addToCart = () => {
     cartDispatch({ type: CartActionType.ADD_TO_CART, payload: product });
@@ -50,6 +55,17 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
           type: CartActionType.REMOVE_FROM_CART,
           payload: product.uuid,
         });
+  };
+
+  const addToWishlist = () => {
+    wishDispatch({ type: WishActionType.ADD_TO_WISHLIST, payload: product });
+  };
+
+  const removeFromWishlist = () => {
+    wishDispatch({
+      type: WishActionType.REMOVE_FROM_WISHLIST,
+      payload: product.uuid,
+    });
   };
 
   return (
@@ -108,17 +124,25 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
           )}
 
           {variant === 'wish' ? (
-            <button className='card__btn card__btn__heart'>
+            <button
+              className='card__btn card__btn__heart'
+              onClick={removeFromWishlist}
+            >
               <FaHeartCircleMinus />
+            </button>
+          ) : isProductInWishlist(product.uuid) ? (
+            <button
+              className='card__btn card__btn__heart'
+              onClick={removeFromWishlist}
+            >
+              <FaHeartCircleCheck />
             </button>
           ) : (
             <button
               className='card__btn card__btn__heart'
-              onClick={() => {
-                setWishAdded((prev) => !prev);
-              }}
+              onClick={addToWishlist}
             >
-              {wishAdded ? <FaHeartCircleCheck /> : <FaHeartCirclePlus />}
+              <FaHeartCirclePlus />
             </button>
           )}
         </div>

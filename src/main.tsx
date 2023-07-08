@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext.tsx';
 import { ProductContextProvider } from './context/ProductContext.tsx';
 import { CartContextProvider } from './context/CartContext.tsx';
+import { WishContextProvider } from './context/WishContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <AuthContextProvider>
         <ProductContextProvider>
           <CartContextProvider>
-            <App />
+            <WishContextProvider>
+              <App />
+            </WishContextProvider>
           </CartContextProvider>
         </ProductContextProvider>
       </AuthContextProvider>

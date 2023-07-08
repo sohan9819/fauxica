@@ -11,10 +11,18 @@ enum CartActionType {
   MINUS = 'decrease_count',
 }
 
-type CartAction = {
-  type: CartActionType;
-  payload: Product | string;
-};
+type CartAction =
+  | {
+      type: CartActionType.ADD_TO_CART;
+      payload: Product;
+    }
+  | {
+      type:
+        | CartActionType.REMOVE_FROM_CART
+        | CartActionType.MINUS
+        | CartActionType.PLUS;
+      payload: string;
+    };
 
 type CartState = CartProduct[];
 

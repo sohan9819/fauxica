@@ -23,6 +23,14 @@ import {
   CartActionType,
 } from './cart';
 
+import {
+  WishAction,
+  WishActionType,
+  WishContextState,
+  WishContextProviderProps,
+  WishState,
+} from './wish';
+
 export type {
   AuthUser,
   AuthStateChangeCallback,
@@ -39,5 +47,16 @@ export type {
   CartState,
   CartContextState,
   CartContextProviderProps,
+  WishAction,
+  WishContextState,
+  WishContextProviderProps,
+  WishState,
 };
-export { Category, Sort, RatingOption, ActionType, CartActionType };
+export {
+  Category,
+  Sort,
+  RatingOption,
+  ActionType,
+  CartActionType,
+  WishActionType,
+};
