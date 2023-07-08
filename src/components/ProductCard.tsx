@@ -17,6 +17,8 @@ import {
 } from '../utils/types';
 import { useCartContext } from '../context/CartContext';
 import { useWishContext } from '../context/WishContext';
+import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 type ProductCardProps =
   | {
@@ -37,9 +39,19 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
   const { wishDispatch, isProductInWishlist } = useWishContext();
 
   const addToCart = () => {
+    toast.success(
+      <Link to={'/cart'}>
+        Added&nbsp;<strong>{product.name}</strong>&nbsp;to 🛒
+      </Link>
+    );
     cartDispatch({ type: CartActionType.ADD_TO_CART, payload: product });
   };
   const removeFromCart = () => {
+    toast.success(
+      <>
+        Removed&nbsp;<strong>{product.name}</strong>&nbsp;from 🛒
+      </>
+    );
     cartDispatch({
       type: CartActionType.REMOVE_FROM_CART,
       payload: product.uuid,
@@ -58,10 +70,20 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
   };
 
   const addToWishlist = () => {
+    toast.success(
+      <Link to={'/wishlist'}>
+        Added&nbsp;<strong>{product.name}</strong>&nbsp;to 💖
+      </Link>
+    );
     wishDispatch({ type: WishActionType.ADD_TO_WISHLIST, payload: product });
   };
 
   const removeFromWishlist = () => {
+    toast.success(
+      <>
+        Removed&nbsp;<strong>{product.name}</strong>&nbsp;from 💖
+      </>
+    );
     wishDispatch({
       type: WishActionType.REMOVE_FROM_WISHLIST,
       payload: product.uuid,
