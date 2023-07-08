@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
+import { FirebaseError, initializeApp } from 'firebase/app';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,7 +19,16 @@ import {
   getDoc,
   setDoc,
   deleteDoc,
+  collection,
+  addDoc,
+  getDocs,
 } from 'firebase/firestore';
+import {
+  AuthUser,
+  AuthStateChangeCallback,
+  ProductsList,
+  ProductData,
+} from '../types';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -45,11 +54,10 @@ googleAuthProvider.setCustomParameters({
   prompt: 'select_account',
 });
 
-export const auth = getAuth();
-export const signInWithGooglePopup = () =>
-  signInWithPopup(auth, googleAuthProvider);
+const auth = getAuth();
+const signInWithGooglePopup = () => signInWithPopup(auth, googleAuthProvider);
 
-export const createUserDocFromAuth = async (user: User) => {
+const createUserDocFromAuth = async (user: User) => {
   const userDocRef = doc(db, 'users', user.uid);
   const userSnapShot = await getDoc(userDocRef);
 
@@ -71,32 +79,66 @@ export const createUserDocFromAuth = async (user: User) => {
   return userDocRef;
 };
 
-type AuthUser = {
-  email: string;
-  password: string;
-};
-
-export const createAuthUserWithEmailAndPassword = async ({
+const createAuthUserWithEmailAndPassword = async ({
   email,
   password,
 }: AuthUser) => await createUserWithEmailAndPassword(auth, email, password);
 
-export const signInAuthUserWithEmailAndPassword = async ({
+const signInAuthUserWithEmailAndPassword = async ({
   email,
   password,
 }: AuthUser) => await signInWithEmailAndPassword(auth, email, password);
 
-type AuthStateChangeCallback = (user: User | null) => void;
-
-export const onAuthStateChangedHandler = (
-  callback: AuthStateChangeCallback
-) => {
+const onAuthStateChangedHandler = (callback: AuthStateChangeCallback) => {
   return onAuthStateChanged(auth, callback);
 };
 
-export const signOutUser = async () => await signOut(auth);
+const signOutUser = async () => await signOut(auth);
 
 export const deleteUser = async (user: User) => {
   await deleteDoc(doc(db, 'users', user.uid));
   await user.delete();
+};
+
+const createProductCollection = async (products: ProductsList) => {
+  try {
+    const productsCollectionRef = collection(db, 'products');
+    // Iterate over the products array and add each product as a document
+    for (const product of products) {
+      await addDoc(productsCollectionRef, product);
+    }
+    console.log('Product collection created successfully!');
+  } catch (error) {
+    const e = error as FirebaseError;
+    console.log('Error creating product collection:', e.message);
+  }
+};
+
+const getProductCollection = async () => {
+  try {
+    const productsCollectionRef = collection(db, 'products');
+    const productsSnapShot = await getDocs(productsCollectionRef);
+
+    return productsSnapShot.docs.reduce((acc: ProductsList, doc) => {
+      return [
+        ...acc,
+        { uuid: doc.id as string, ...(doc.data() as ProductData) },
+      ];
+    }, []);
+  } catch (error) {
+    const e = error as FirebaseError;
+    console.log('Error retrieving product collection:', e.message);
+  }
+};
+
+export {
+  auth,
+  signInWithGooglePopup,
+  createUserDocFromAuth,
+  createAuthUserWithEmailAndPassword,
+  signInAuthUserWithEmailAndPassword,
+  onAuthStateChangedHandler,
+  signOutUser,
+  createProductCollection,
+  getProductCollection,
 };

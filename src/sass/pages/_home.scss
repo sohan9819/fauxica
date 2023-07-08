@@ -107,7 +107,11 @@
 
       &:hover,
       &:focus-within {
-        transform: scale(0.95);
+        .product {
+          &__detail {
+            transform: scale(1);
+          }
+        }
       }
 
       .product {
@@ -123,6 +127,7 @@
           align-items: center;
           justify-content: space-between;
           transition: transform 800ms;
+          transform: scale(0.95);
         }
         &__info {
         }
@@ -138,6 +143,16 @@
         }
         &__price {
           font-size: $fs-l;
+        }
+      }
+
+      &.card-1,
+      &.card-2,
+      &.card-3,
+      &.card-4,
+      &.card-5 {
+        &:hover {
+          transform: scale(1.01);
         }
       }
 

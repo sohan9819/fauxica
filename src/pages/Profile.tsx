@@ -1,12 +1,19 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import { Transition } from '../components';
 import { useAuthContext } from '../context';
 import { FirebaseError } from 'firebase/app';
 import { signOutUser, deleteUser } from '../utils/firebase/firebase.utils';
+import { useCartContext } from '../context/CartContext';
+import { useWishContext } from '../context/WishContext';
 
 const Profile = () => {
   const { user } = useAuthContext();
+  const { cartProducts } = useCartContext();
+  const { wishProducts } = useWishContext();
+
+  const navigate = useNavigate();
+
   const handleSignOut = async () => {
     if (window.confirm('Are you sure you want to signOut?')) {
       try {
@@ -75,15 +82,31 @@ const Profile = () => {
             <div className='profile__summary'>
               <div className='profile__summary__cart'>
                 <p className='profile__summary__cart-label'>Cart Items 🛒</p>
-                <strong className='profile__summary__cart-number'>0</strong>
-                <button className='profile__summary__cart-btn'>
+                <strong className='profile__summary__cart-number'>
+                  {cartProducts.length}
+                </strong>
+                <button
+                  className='profile__summary__cart-btn'
+                  disabled={cartProducts.length <= 0}
+                  onClick={() => {
+                    navigate('/cart');
+                  }}
+                >
                   Check now
                 </button>
               </div>
               <div className='profile__summary__wish'>
                 <p className='profile__summary__wish-label'>Wish Items 💖</p>
-                <strong className='profile__summary__wish-number'>0</strong>
-                <button className='profile__summary__wish-btn'>
+                <strong className='profile__summary__wish-number'>
+                  {wishProducts.length}
+                </strong>
+                <button
+                  className='profile__summary__wish-btn'
+                  disabled={wishProducts.length <= 0}
+                  onClick={() => {
+                    navigate('/wishlist');
+                  }}
+                >
                   Check now
                 </button>
               </div>

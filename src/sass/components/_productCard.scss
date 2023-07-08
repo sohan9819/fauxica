@@ -2,6 +2,7 @@
   padding: 1rem;
   border-radius: 1rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  height: max-content;
 
   &:hover,
   &:focus {
@@ -23,12 +24,11 @@
 
     &__name {
       font-size: $fs-default;
-      // font-weight: $fw-regular;
     }
 
-    &__description {
+    &__category {
       font-size: $fs-s;
-      // display: none;
+      color: $color-gray;
     }
 
     &__stats {
