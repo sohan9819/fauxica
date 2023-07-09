@@ -32,6 +32,7 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
     // );
     // cartDispatch({ type: CartActionType.ADD_TO_CART, payload: product });
     if (user) {
+      toast.dismiss();
       toast.success(
         <Link to={'/cart'}>
           Added&nbsp;<strong>{product.name}</strong>&nbsp;to 🛒
@@ -48,6 +49,7 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
     }
   };
   const removeFromCart = () => {
+    toast.dismiss();
     toast.success(
       <>
         Removed&nbsp;<strong>{product.name}</strong>&nbsp;from 🛒
@@ -69,7 +71,6 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
           payload: product.uuid,
         });
   };
-
   const addToWishlist = () => {
     // toast.success(
     //   <Link to={'/wishlist'}>
@@ -78,6 +79,7 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
     // );
     // wishDispatch({ type: WishActionType.ADD_TO_WISHLIST, payload: product });
     if (user) {
+      toast.dismiss();
       toast.success(
         <Link to={'/wishlist'}>
           Added&nbsp;<strong>{product.name}</strong>&nbsp;to 💖
@@ -93,8 +95,8 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
       );
     }
   };
-
   const removeFromWishlist = () => {
+    toast.dismiss();
     toast.success(
       <>
         Removed&nbsp;<strong>{product.name}</strong>&nbsp;from 💖

@@ -55,7 +55,10 @@ googleAuthProvider.setCustomParameters({
 });
 
 const auth = getAuth();
-const signInWithGooglePopup = () => signInWithPopup(auth, googleAuthProvider);
+const signInWithGooglePopup = () => {
+  const authentication = signInWithPopup(auth, googleAuthProvider);
+  return authentication;
+};
 
 const createUserDocFromAuth = async (user: User) => {
   const userDocRef = doc(db, 'users', user.uid);
