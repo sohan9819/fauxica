@@ -52,28 +52,36 @@ const Profile = () => {
         {user ? (
           <div className='profile'>
             <div className='profile__user'>
-              <p className='profile__user__name'>
-                <span className='profile__user__label'>Name</span>
-                <span className='profile__user__text'>{user.displayName}</span>
-              </p>
-              <p className='profile__user__email'>
-                <span className='profile__user__label'>Email</span>
-                <span className='profile__user__text'>{user.email}</span>
-              </p>
-              <div className='profile__user__btns'>
-                <button
-                  className='profile__user__btns-btn'
-                  onClick={handleSignOut}
-                >
-                  SignOut
-                </button>
-                <button
-                  className='profile__user__btns-btn'
-                  onClick={handleDeleteAccount}
-                >
-                  Delete Account
-                </button>
-              </div>
+              {user.displayName ? (
+                <>
+                  <p className='profile__user__name'>
+                    <span className='profile__user__label'>Name</span>
+                    <span className='profile__user__text'>
+                      {user.displayName}
+                    </span>
+                  </p>
+                  <p className='profile__user__email'>
+                    <span className='profile__user__label'>Email</span>
+                    <span className='profile__user__text'>{user.email}</span>
+                  </p>
+                  <div className='profile__user__btns'>
+                    <button
+                      className='profile__user__btns-btn'
+                      onClick={handleSignOut}
+                    >
+                      SignOut
+                    </button>
+                    <button
+                      className='profile__user__btns-btn'
+                      onClick={handleDeleteAccount}
+                    >
+                      Delete Account
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <p className='profile__loading'>Loading info...</p>
+              )}
             </div>
             <div className='profile__summary'>
               <div className='profile__summary__cart'>

@@ -7,8 +7,7 @@ import {
 import { FirebaseError } from 'firebase/app';
 import toast from 'react-hot-toast';
 import { updateProfile } from 'firebase/auth';
-// import { updateUserProfile } from '../utils/firebase/firebase.utils';
-// import { useAuthContext } from '../context';
+import { useNavigate } from 'react-router-dom';
 
 type FormInputs = {
   displayName: string;
@@ -30,7 +29,7 @@ const SignUpForm = () => {
   const [authLoading, setAuthLoading] = useState(false);
   const [authError, setAuthError] = useState('');
 
-  // const { setUser } = useAuthContext();
+  const navigate = useNavigate();
 
   const onSubmitHandler: SubmitHandler<FormInputs> = async ({
     displayName,
@@ -44,8 +43,9 @@ const SignUpForm = () => {
         password,
       });
       await updateProfile(user, { displayName });
-      // await updateUserProfile({ displayName, setUser });
       await createUserDocFromAuth({ ...user, displayName });
+      navigate(-1);
+      toast.dismiss();
       toast.success(`Welcome to fauxica, ${user?.displayName} 🥳🥳🥳`);
     } catch (error) {
       const e = error as FirebaseError;

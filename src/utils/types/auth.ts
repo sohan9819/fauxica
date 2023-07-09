@@ -5,11 +5,6 @@ type AuthUser = {
   password: string;
 };
 
-type updateUserProfileProps = {
-  displayName?: string;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
-};
-
 type AuthStateChangeCallback = (user: User | null) => void;
 
-export type { AuthUser, AuthStateChangeCallback, updateUserProfileProps };
+export type { AuthUser, AuthStateChangeCallback };

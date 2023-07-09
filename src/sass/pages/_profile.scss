@@ -6,6 +6,11 @@
   gap: 2rem;
   padding: 1rem;
 
+  &__loading {
+    font-size: $fs-default;
+    text-align: center;
+  }
+
   &__user {
     width: 100%;
     display: flex;
