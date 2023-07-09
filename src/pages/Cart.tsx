@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import { ProductCard, Transition } from '../components';
-import { useCartContext } from '../context/CartContext';
+import { useCartContext } from '../context';
 
 const Cart = () => {
   const { cartProducts } = useCartContext();

@@ -25,6 +25,7 @@ import {
   ratingFilter,
   sortFilter,
 } from '../utils/filters';
+import toast from 'react-hot-toast';
 
 const initialState = {
   search: '',
@@ -77,8 +78,13 @@ const ProductContextProvider = ({ children }: ProductContextProviderProps) => {
   const [filterState, filterDispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    getProductCollection().then((data) => {
+    const productPromise = getProductCollection().then((data) => {
       setProducts(data as ProductsList);
+    });
+    toast.promise(productPromise, {
+      loading: 'Loading Products data',
+      success: 'Got the Products data',
+      error: 'Error when fetching Products',
     });
   }, []);
 

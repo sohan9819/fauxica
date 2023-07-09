@@ -1,4 +1,8 @@
-import { AuthUser, AuthStateChangeCallback } from './auth';
+import {
+  AuthUser,
+  AuthStateChangeCallback,
+  // updateUserProfileProps,
+} from './auth';
 import {
   ProductData,
   Product,
@@ -12,6 +16,7 @@ import {
   FilterState,
   Action,
   ActionType,
+  ProductCardProps,
 } from './products';
 
 import {
@@ -36,6 +41,7 @@ export type {
   AuthStateChangeCallback,
   ProductData,
   Product,
+  ProductCardProps,
   ProductsList,
   Rating,
   ProductContextProviderProps,

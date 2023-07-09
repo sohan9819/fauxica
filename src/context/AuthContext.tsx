@@ -17,7 +17,7 @@ const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const unSubscribe = onAuthStateChangedHandler((user) => {
+    const unSubscribe = onAuthStateChangedHandler(async (user) => {
       setUser(user);
     });
 

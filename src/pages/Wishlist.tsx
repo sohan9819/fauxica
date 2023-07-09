@@ -1,7 +1,7 @@
 import { FiArrowRight } from 'react-icons/fi';
 import { Transition, ProductCard } from '../components';
 import { Link } from 'react-router-dom';
-import { useWishContext } from '../context/WishContext';
+import { useWishContext } from '../context';
 
 const Wishlist = () => {
   const { wishProducts } = useWishContext();

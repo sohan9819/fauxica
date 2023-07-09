@@ -6,6 +6,7 @@ import {
   createUserDocFromAuth,
 } from '../utils/firebase/firebase.utils';
 import { FirebaseError } from 'firebase/app';
+import { toast } from 'react-hot-toast';
 
 type AuthOption = 'SignIn' | 'SignUp';
 
@@ -16,9 +17,11 @@ const Auth = () => {
     try {
       const { user } = await signInWithGooglePopup();
       await createUserDocFromAuth(user);
+      toast.success(`Welcome to fauxica, ${user.displayName} 🥳🥳🥳`);
     } catch (error) {
       const e = error as FirebaseError;
       alert(e.message);
+      toast.success(e.message);
     }
   };
 

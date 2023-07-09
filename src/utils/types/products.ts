@@ -1,3 +1,5 @@
+import { CartProduct } from '.';
+
 enum Category {
   Hats = 'Hats',
   Jackets = 'Jackets',
@@ -75,7 +77,21 @@ type Action = {
   payload: Sort | Category | RatingOption | string | number;
 };
 
-export {};
+//-------------- Product Card ---------------//
+
+type ProductCardProps =
+  | {
+      variant?: 'default';
+      product: Product;
+    }
+  | {
+      variant: 'cart';
+      product: CartProduct;
+    }
+  | {
+      variant: 'wish';
+      product: Product;
+    };
 
 export type {
   ProductData,
@@ -86,5 +102,6 @@ export type {
   InitialStateType,
   FilterState,
   Action,
+  ProductCardProps,
 };
 export { Category, Sort, RatingOption, ActionType };
