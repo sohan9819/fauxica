@@ -4,8 +4,11 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocFromAuth,
 } from '../utils/firebase/firebase.utils';
-import { updateProfile } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
+import toast from 'react-hot-toast';
+import { updateProfile } from 'firebase/auth';
+// import { updateUserProfile } from '../utils/firebase/firebase.utils';
+// import { useAuthContext } from '../context';
 
 type FormInputs = {
   displayName: string;
@@ -27,6 +30,8 @@ const SignUpForm = () => {
   const [authLoading, setAuthLoading] = useState(false);
   const [authError, setAuthError] = useState('');
 
+  // const { setUser } = useAuthContext();
+
   const onSubmitHandler: SubmitHandler<FormInputs> = async ({
     displayName,
     email,
@@ -39,7 +44,9 @@ const SignUpForm = () => {
         password,
       });
       await updateProfile(user, { displayName });
+      // await updateUserProfile({ displayName, setUser });
       await createUserDocFromAuth({ ...user, displayName });
+      toast.success(`Welcome to fauxica, ${user?.displayName} 🥳🥳🥳`);
     } catch (error) {
       const e = error as FirebaseError;
       reset();

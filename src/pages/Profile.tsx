@@ -4,6 +4,7 @@ import { Transition } from '../components';
 import { useAuthContext, useWishContext, useCartContext } from '../context';
 import { FirebaseError } from 'firebase/app';
 import { signOutUser, deleteUser } from '../utils/firebase/firebase.utils';
+import toast from 'react-hot-toast';
 
 const Profile = () => {
   const { user } = useAuthContext();
@@ -17,7 +18,7 @@ const Profile = () => {
       try {
         await signOutUser();
       } catch (error) {
-        alert((error as FirebaseError).message);
+        toast.error((error as FirebaseError).message);
       }
     }
   };
@@ -28,19 +29,16 @@ const Profile = () => {
         user && (await deleteUser(user));
       } catch (error) {
         const e = error as FirebaseError;
-        console.log('Code ', e.code);
-        console.log('Name ', e.name);
-        console.log('Message ', e.message);
 
         switch (e.code) {
           case 'auth/requires-recent-login':
-            alert(
+            toast.error(
               'To delete your account you need a recent login , please logout and login again'
             );
             break;
 
           default:
-            alert(e.message);
+            toast.error(e.message);
             break;
         }
       }

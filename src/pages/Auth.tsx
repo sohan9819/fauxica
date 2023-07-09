@@ -17,11 +17,7 @@ const Auth = () => {
     try {
       const { user } = await signInWithGooglePopup();
       await createUserDocFromAuth(user);
-      toast.success(
-        <>
-          Welcome to fauxica,&nbsp;<strong>{user.displayName} 🥳🥳🥳</strong>
-        </>
-      );
+      toast.success(`Welcome to fauxica, ${user.displayName} 🥳🥳🥳`);
     } catch (error) {
       const e = error as FirebaseError;
       alert(e.message);

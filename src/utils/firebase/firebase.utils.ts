@@ -11,6 +11,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  // updateProfile,
 } from 'firebase/auth';
 import { User } from 'firebase/auth';
 import {
@@ -29,6 +30,7 @@ import {
   ProductsList,
   ProductData,
 } from '../types';
+// import { updateUserProfileProps } from '../types/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -98,10 +100,39 @@ const onAuthStateChangedHandler = (callback: AuthStateChangeCallback) => {
 
 const signOutUser = async () => await signOut(auth);
 
-export const deleteUser = async (user: User) => {
+const deleteUser = async (user: User) => {
   await deleteDoc(doc(db, 'users', user.uid));
   await user.delete();
 };
+
+// TODO: Need to update this function for complete profile update
+// UpdateUserProfile function
+// const updateUserProfile = async ({ displayName, setUser }) => {
+//   await updateProfile(auth.currentUser, { displayName });
+//   console.log(auth.currentUser);
+//   setUser(auth.currentUser);
+// };
+
+// ! Work on this function when need to implement cart and wishlist in firestore
+// export const getUserById = async (userId: string) => {
+//   try {
+//     const userRef = doc(db, 'users', userId);
+//     const userDoc = await getDoc(userRef);
+
+//     if (userDoc.exists()) {
+//       const user = userDoc.data();
+//       console.log('User:', user);
+//       return user;
+//       // You can perform any further processing or use the product data
+//     } else {
+//       console.log('User not found');
+//       return null;
+//     }
+//   } catch (error) {
+//     const e = error as FirebaseError;
+//     console.log('Error retrieving product:', e.message);
+//   }
+// };
 
 const createProductCollection = async (products: ProductsList) => {
   try {
@@ -144,4 +175,6 @@ export {
   signOutUser,
   createProductCollection,
   getProductCollection,
+  deleteUser,
+  // updateUserProfile,
 };

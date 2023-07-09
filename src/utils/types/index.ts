@@ -1,4 +1,8 @@
-import { AuthUser, AuthStateChangeCallback } from './auth';
+import {
+  AuthUser,
+  AuthStateChangeCallback,
+  // updateUserProfileProps,
+} from './auth';
 import {
   ProductData,
   Product,
