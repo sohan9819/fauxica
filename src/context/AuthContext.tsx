@@ -1,15 +1,7 @@
 import { useState, useEffect, createContext, useContext } from 'react';
 import { User } from 'firebase/auth';
 import { onAuthStateChangedHandler } from '../utils/firebase/firebase.utils';
-
-type AuthContextProps = {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
-};
-
-type AuthContextProviderProps = {
-  children: React.ReactNode;
-};
+import { AuthContextProps, AuthContextProviderProps } from '../utils/types';
 
 const AuthContext = createContext({} as AuthContextProps);
 
