@@ -11,7 +11,6 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
-  // updateProfile,
 } from 'firebase/auth';
 import { User } from 'firebase/auth';
 import {
@@ -30,7 +29,6 @@ import {
   ProductsList,
   ProductData,
 } from '../types';
-// import { updateUserProfileProps } from '../types/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -107,11 +105,6 @@ const deleteUser = async (user: User) => {
 
 // TODO: Need to update this function for complete profile update
 // UpdateUserProfile function
-// const updateUserProfile = async ({ displayName, setUser }) => {
-//   await updateProfile(auth.currentUser, { displayName });
-//   console.log(auth.currentUser);
-//   setUser(auth.currentUser);
-// };
 
 // ! Work on this function when need to implement cart and wishlist in firestore
 // export const getUserById = async (userId: string) => {
@@ -176,5 +169,4 @@ export {
   createProductCollection,
   getProductCollection,
   deleteUser,
-  // updateUserProfile,
 };
