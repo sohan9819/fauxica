@@ -1,5 +1,5 @@
 import { useCartContext } from '../context';
-import { useState, useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
 const CartBill = () => {
   const { cartProducts } = useCartContext();
