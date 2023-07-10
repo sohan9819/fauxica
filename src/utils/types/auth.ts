@@ -7,4 +7,18 @@ type AuthUser = {
 
 type AuthStateChangeCallback = (user: User | null) => void;
 
-export type { AuthUser, AuthStateChangeCallback };
+type AuthContextProps = {
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+};
+
+type AuthContextProviderProps = {
+  children: React.ReactNode;
+};
+
+export type {
+  AuthUser,
+  AuthStateChangeCallback,
+  AuthContextProps,
+  AuthContextProviderProps,
+};

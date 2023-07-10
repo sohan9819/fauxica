@@ -1,4 +1,9 @@
-import { AuthUser, AuthStateChangeCallback } from './auth';
+import {
+  AuthUser,
+  AuthStateChangeCallback,
+  AuthContextProps,
+  AuthContextProviderProps,
+} from './auth';
 import {
   ProductData,
   Product,
@@ -53,6 +58,8 @@ export type {
   WishContextState,
   WishContextProviderProps,
   WishState,
+  AuthContextProps,
+  AuthContextProviderProps,
 };
 export {
   Category,
