@@ -128,3 +128,4 @@ dist
 
 # Raw Shop-data
 shop-data.ts
+.vercel
