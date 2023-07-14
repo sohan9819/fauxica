@@ -20,8 +20,7 @@
     border-radius: 1rem;
     gap: 1rem;
 
-    &__name,
-    &__email {
+    &__info {
       display: flex;
       flex-direction: column;
     }

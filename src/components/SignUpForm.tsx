@@ -45,6 +45,7 @@ const SignUpForm = () => {
       await updateProfile(user, { displayName });
       await createUserDocFromAuth({ ...user, displayName });
       navigate(-1);
+      user.reload();
       toast.dismiss();
       toast.success(`Welcome to fauxica, ${user?.displayName} 🥳🥳🥳`);
     } catch (error) {

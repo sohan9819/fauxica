@@ -17,20 +17,15 @@ import {
 } from '../utils/types';
 import { useAuthContext, useCartContext, useWishContext } from '../context';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
   const { user } = useAuthContext();
   const { cartDispatch, isProductInCart } = useCartContext();
   const { wishDispatch, isProductInWishlist } = useWishContext();
+  const navigate = useNavigate();
 
   const addToCart = () => {
-    // toast.success(
-    //   <Link to={'/cart'}>
-    //     Added&nbsp;<strong>{product.name}</strong>&nbsp;to 🛒
-    //   </Link>
-    // );
-    // cartDispatch({ type: CartActionType.ADD_TO_CART, payload: product });
     if (user) {
       toast.dismiss();
       toast.success(
@@ -72,12 +67,6 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
         });
   };
   const addToWishlist = () => {
-    // toast.success(
-    //   <Link to={'/wishlist'}>
-    //     Added&nbsp;<strong>{product.name}</strong>&nbsp;to 💖
-    //   </Link>
-    // );
-    // wishDispatch({ type: WishActionType.ADD_TO_WISHLIST, payload: product });
     if (user) {
       toast.dismiss();
       toast.success(
@@ -110,7 +99,10 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
 
   const buyNow = () => {
     if (user) {
-      console.log('Buy now');
+      // console.log('Buy now');
+      cartDispatch({ type: CartActionType.RESET, payload: '' });
+      cartDispatch({ type: CartActionType.ADD_TO_CART, payload: product });
+      navigate('/cart');
     } else {
       toast.dismiss();
       toast.error(

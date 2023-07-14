@@ -1,7 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import { Transition } from '../components';
-import { useAuthContext, useWishContext, useCartContext } from '../context';
+import {
+  useAuthContext,
+  useWishContext,
+  useCartContext,
+  useOrderContext,
+} from '../context';
 import { FirebaseError } from 'firebase/app';
 import { signOutUser, deleteUser } from '../utils/firebase/firebase.utils';
 import toast from 'react-hot-toast';
@@ -10,6 +15,7 @@ const Profile = () => {
   const { user } = useAuthContext();
   const { cartProducts } = useCartContext();
   const { wishProducts } = useWishContext();
+  const { orders } = useOrderContext();
 
   const navigate = useNavigate();
 
@@ -54,13 +60,13 @@ const Profile = () => {
             <div className='profile__user'>
               {user.displayName ? (
                 <>
-                  <p className='profile__user__name'>
+                  <p className='profile__user__info'>
                     <span className='profile__user__label'>Name</span>
                     <span className='profile__user__text'>
                       {user.displayName}
                     </span>
                   </p>
-                  <p className='profile__user__email'>
+                  <p className='profile__user__info'>
                     <span className='profile__user__label'>Email</span>
                     <span className='profile__user__text'>{user.email}</span>
                   </p>
@@ -118,8 +124,16 @@ const Profile = () => {
                 <p className='profile__summary__order-label'>
                   Total Orders 📦{' '}
                 </p>
-                <strong className='profile__summary__order-number'>0</strong>
-                <button className='profile__summary__order-btn'>
+                <strong className='profile__summary__order-number'>
+                  {orders ? orders.length : 0}
+                </strong>
+                <button
+                  className='profile__summary__order-btn'
+                  disabled={orders && orders.length <= 0 ? true : false}
+                  onClick={() => {
+                    navigate('/order');
+                  }}
+                >
                   Check now
                 </button>
               </div>

@@ -36,6 +36,10 @@ const CartContextProvider = ({ children }: CartContextProviderProps) => {
             ? { ...product, count: product.count-- }
             : product
         );
+
+      case CartActionType.RESET:
+        return [];
+
       default:
         return state;
     }

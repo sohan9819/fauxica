@@ -13,6 +13,14 @@
     padding: 0 1rem;
   }
 
+  &__btn {
+    padding: 1rem 2rem;
+    font-size: $fs-s;
+    background: teal;
+    color: white;
+    border-radius: 1rem;
+  }
+
   &__empty {
     font-size: $fs-l;
     font-family: $ff-secondary;

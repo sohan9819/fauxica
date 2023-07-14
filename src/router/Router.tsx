@@ -1,14 +1,16 @@
+import { cloneElement } from 'react';
 import { useRoutes, useLocation, Navigate } from 'react-router-dom';
 import {
   Home,
   Products,
   Wishlist,
   Cart,
+  Order,
+  OrderId,
   Profile,
   Error404,
   Auth,
 } from '../pages';
-import { cloneElement } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useAuthContext } from '../context';
 
@@ -24,27 +26,40 @@ const Router = () => {
           element: <Home />,
         },
         {
-          path: '/products',
+          path: 'products',
           element: <Products />,
         },
         {
-          path: '/wishlist',
+          path: 'wishlist',
           element: user ? <Wishlist /> : <Navigate to={'/auth'} />,
         },
         {
-          path: '/cart',
+          path: 'cart',
           element: user ? <Cart /> : <Navigate to={'/auth'} />,
         },
         {
-          path: '/profile',
+          path: 'order',
+          children: [
+            {
+              index: true,
+              element: user ? <Order /> : <Navigate to={'/auth'} />,
+            },
+            {
+              path: ':orderId',
+              element: user ? <OrderId /> : <Navigate to={'/auth'} />,
+            },
+          ],
+        },
+        {
+          path: 'profile',
           element: user ? <Profile /> : <Navigate to={'/auth'} />,
         },
         {
-          path: '/auth',
+          path: 'auth',
           element: user ? <Profile /> : <Auth />,
         },
         {
-          path: '/*',
+          path: '*',
           element: <Error404 />,
         },
       ],
