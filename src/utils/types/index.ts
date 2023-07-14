@@ -37,6 +37,16 @@ import {
   WishState,
 } from './wish';
 
+import {
+  InitialOrderState,
+  Order,
+  OrderList,
+  OrderContextProps,
+  OrderContextState,
+  OrderAction,
+  OrderActionType,
+} from './order';
+
 export type {
   AuthUser,
   AuthStateChangeCallback,
@@ -60,7 +70,14 @@ export type {
   WishState,
   AuthContextProps,
   AuthContextProviderProps,
+  InitialOrderState,
+  Order,
+  OrderList,
+  OrderContextProps,
+  OrderContextState,
+  OrderAction,
 };
+
 export {
   Category,
   Sort,
@@ -68,4 +85,5 @@ export {
   ActionType,
   CartActionType,
   WishActionType,
+  OrderActionType,
 };

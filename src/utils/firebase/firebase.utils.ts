@@ -28,6 +28,8 @@ import {
   AuthStateChangeCallback,
   ProductsList,
   ProductData,
+  InitialOrderState,
+  Order,
 } from '../types';
 
 // Your web app's Firebase configuration
@@ -103,29 +105,64 @@ const deleteUser = async (user: User) => {
   await user.delete();
 };
 
-// TODO: Need to update this function for complete profile update
-// UpdateUserProfile function
+const addOrderToUser = async (
+  orderData: InitialOrderState
+): Promise<string> => {
+  try {
+    const ordersCollectionRef = collection(
+      db,
+      'users',
+      auth.currentUser?.uid as string,
+      'orders'
+    );
+    const newOrderDocRef = await addDoc(ordersCollectionRef, orderData);
+    const orderId = newOrderDocRef.id;
+    return orderId;
+  } catch (error) {
+    console.error('Error adding order to user', error);
+    throw new Error('Failed to add order to user');
+  }
+};
 
-// ! Work on this function when need to implement cart and wishlist in firestore
-// export const getUserById = async (userId: string) => {
-//   try {
-//     const userRef = doc(db, 'users', userId);
-//     const userDoc = await getDoc(userRef);
+const getAllOrders = async () => {
+  try {
+    const ordersCollectionRef = collection(
+      db,
+      `users/${auth.currentUser?.uid as string}/orders`
+    );
+    const ordersSnapshot = await getDocs(ordersCollectionRef);
 
-//     if (userDoc.exists()) {
-//       const user = userDoc.data();
-//       console.log('User:', user);
-//       return user;
-//       // You can perform any further processing or use the product data
-//     } else {
-//       console.log('User not found');
-//       return null;
-//     }
-//   } catch (error) {
-//     const e = error as FirebaseError;
-//     console.log('Error retrieving product:', e.message);
-//   }
-// };
+    const orders = ordersSnapshot.docs.map(
+      (doc) =>
+        ({
+          uid: doc.id,
+          ...doc.data(),
+        } as Order)
+    );
+    return orders.length !== 0 ? orders : null;
+  } catch (error) {
+    const e = error as FirebaseError;
+    console.error('Error retrieving orders:', e.message);
+    // throw new Error('Failed to retrieve orders');
+    return null;
+  }
+};
+
+const getOrderById = async (orderId: string) => {
+  try {
+    const orderDocRef = doc(
+      db,
+      `users/${auth.currentUser?.uid as string}/orders`,
+      orderId
+    );
+    const orderDoc = await getDoc(orderDocRef);
+    return orderDoc.data() as Order;
+  } catch (error) {
+    const e = error as FirebaseError;
+    console.log('Failed to retrive order', e.message);
+    return null;
+  }
+};
 
 const createProductCollection = async (products: ProductsList) => {
   try {
@@ -169,4 +206,7 @@ export {
   createProductCollection,
   getProductCollection,
   deleteUser,
+  addOrderToUser,
+  getOrderById,
+  getAllOrders,
 };

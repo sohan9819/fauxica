@@ -1,0 +1,138 @@
+.orders {
+  &__container {
+    width: 100%;
+    max-width: 60rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__card {
+    width: 100%;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 2rem;
+
+    &-grayText {
+      font-size: $fs-xs;
+      color: $color-gray;
+    }
+
+    &__header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      font-size: $fs-s;
+
+      &-status {
+        &.complete {
+          color: $color-primary;
+        }
+        &.incomplete {
+          color: $color-red;
+        }
+      }
+    }
+
+    &__body {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &__products {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        gap: 1rem;
+
+        &-image {
+          aspect-ratio: 1;
+          width: 5rem;
+          border-radius: 1rem;
+          object-fit: cover;
+          object-position: center;
+        }
+      }
+
+      &__total {
+        font-size: $fs-default;
+        font-weight: $fw-bold;
+
+        &-text {
+          font-size: $fs-s;
+          font-weight: $fw-regular;
+        }
+      }
+    }
+
+    &__footer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &-button {
+        padding: 0.4rem 1.2rem;
+        font-size: $fs-default;
+        border-radius: 1rem;
+
+        &.check {
+          color: $color-primary;
+          &:hover {
+            color: $color-white;
+            background: $color-primary;
+          }
+        }
+
+        &.delete {
+          color: $color-red;
+          &:hover {
+            color: $color-white;
+            background: $color-red;
+          }
+        }
+      }
+    }
+  }
+}
+
+.order {
+  width: 100%;
+  max-width: 60rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.cart__products {
+  height: 10rem;
+  width: 100%;
+  max-width: 60rem;
+  // padding: 1rem 2rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 2rem;
+  border-spacing: 1rem;
+  text-align: center;
+
+  &__head {
+    &-title {
+      font-size: $fs-xl;
+    }
+
+    &-headings {
+      font-size: $fs-default;
+    }
+  }
+  &__body {
+    font-size: $fs-s;
+  }
+}

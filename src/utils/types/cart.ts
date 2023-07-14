@@ -9,6 +9,7 @@ enum CartActionType {
   REMOVE_FROM_CART = 'remove_from_cart',
   PLUS = 'increase_count',
   MINUS = 'decrease_count',
+  RESET = 'reset',
 }
 
 type CartAction =
@@ -20,7 +21,8 @@ type CartAction =
       type:
         | CartActionType.REMOVE_FROM_CART
         | CartActionType.MINUS
-        | CartActionType.PLUS;
+        | CartActionType.PLUS
+        | CartActionType.RESET;
       payload: string;
     };
 
