@@ -27,13 +27,13 @@ const CartContextProvider = ({ children }: CartContextProviderProps) => {
       case CartActionType.PLUS:
         return state.map((product) =>
           product.uuid === payload
-            ? { ...product, count: product.count++ }
+            ? { ...product, count: product.count + 1 }
             : product
         );
       case CartActionType.MINUS:
         return state.map((product) =>
           product.uuid === payload
-            ? { ...product, count: product.count-- }
+            ? { ...product, count: product.count - 1 }
             : product
         );
 
