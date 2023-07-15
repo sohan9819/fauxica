@@ -16,7 +16,6 @@ const Home = () => {
         variants={staggerContainer()}
         initial='hidden'
         whileInView='show'
-        whileHover='hover'
         viewport={{ once: false, amount: 0.25 }}
       >
         <div className='home__hero'>

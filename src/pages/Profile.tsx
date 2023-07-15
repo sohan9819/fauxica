@@ -1,5 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { FiArrowRight } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 import { Transition } from '../components';
 import {
   useAuthContext,
@@ -10,6 +9,13 @@ import {
 import { FirebaseError } from 'firebase/app';
 import { signOutUser, deleteUser } from '../utils/firebase/firebase.utils';
 import toast from 'react-hot-toast';
+import { motion } from 'framer-motion';
+import {
+  staggerContainer,
+  fadeIn,
+  textVariant_1,
+  popOut_1,
+} from '../utils/motion';
 
 const Profile = () => {
   const { user } = useAuthContext();
@@ -53,102 +59,115 @@ const Profile = () => {
 
   return (
     <>
-      <main className='section'>
-        <h1 className='section__title'>Profile🤠 </h1>
-        {user ? (
-          <div className='profile'>
-            <div className='profile__user'>
-              {user.displayName ? (
-                <>
-                  <p className='profile__user__info'>
-                    <span className='profile__user__label'>Name</span>
-                    <span className='profile__user__text'>
-                      {user.displayName}
-                    </span>
-                  </p>
-                  <p className='profile__user__info'>
-                    <span className='profile__user__label'>Email</span>
-                    <span className='profile__user__text'>{user.email}</span>
-                  </p>
-                  <div className='profile__user__btns'>
-                    <button
-                      className='profile__user__btns-btn'
-                      onClick={handleSignOut}
-                    >
-                      SignOut
-                    </button>
-                    <button
-                      className='profile__user__btns-btn'
-                      onClick={handleDeleteAccount}
-                    >
-                      Delete Account
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <p className='profile__loading'>Loading info...</p>
-              )}
-            </div>
-            <div className='profile__summary'>
-              <div className='profile__summary__cart'>
-                <p className='profile__summary__cart-label'>Cart Items 🛒</p>
-                <strong className='profile__summary__cart-number'>
-                  {cartProducts.length}
-                </strong>
-                <button
-                  className='profile__summary__cart-btn'
-                  disabled={cartProducts.length <= 0}
-                  onClick={() => {
-                    navigate('/cart');
-                  }}
+      <motion.main
+        className='section'
+        variants={staggerContainer()}
+        initial='hidden'
+        animate='show'
+      >
+        <motion.h1 className='section__title' variants={textVariant_1(0.1)}>
+          Profile🤠{' '}
+        </motion.h1>
+        <motion.div className='profile' variants={fadeIn(0.2)}>
+          <div className='profile__user'>
+            {user?.displayName ? (
+              <>
+                <motion.p
+                  className='profile__user__info'
+                  variants={textVariant_1(0.2)}
                 >
-                  Check now
-                </button>
-              </div>
-              <div className='profile__summary__wish'>
-                <p className='profile__summary__wish-label'>Wish Items 💖</p>
-                <strong className='profile__summary__wish-number'>
-                  {wishProducts.length}
-                </strong>
-                <button
-                  className='profile__summary__wish-btn'
-                  disabled={wishProducts.length <= 0}
-                  onClick={() => {
-                    navigate('/wishlist');
-                  }}
+                  <span className='profile__user__label'>Name</span>
+                  <span className='profile__user__text'>
+                    {user.displayName}
+                  </span>
+                </motion.p>
+                <motion.p
+                  className='profile__user__info'
+                  variants={textVariant_1(0.3)}
                 >
-                  Check now
-                </button>
-              </div>
-              <div className='profile__summary__order'>
-                <p className='profile__summary__order-label'>
-                  Total Orders 📦{' '}
-                </p>
-                <strong className='profile__summary__order-number'>
-                  {orders ? orders.length : 0}
-                </strong>
-                <button
-                  className='profile__summary__order-btn'
-                  disabled={orders && orders.length <= 0 ? true : false}
-                  onClick={() => {
-                    navigate('/order');
-                  }}
+                  <span className='profile__user__label'>Email</span>
+                  <span className='profile__user__text'>{user.email}</span>
+                </motion.p>
+                <motion.div
+                  className='profile__user__btns'
+                  variants={fadeIn(0.4)}
                 >
-                  Check now
-                </button>
-              </div>
-            </div>
+                  <button
+                    className='profile__user__btns-btn'
+                    onClick={handleSignOut}
+                  >
+                    SignOut
+                  </button>
+                  <button
+                    className='profile__user__btns-btn'
+                    onClick={handleDeleteAccount}
+                  >
+                    Delete Account
+                  </button>
+                </motion.div>
+              </>
+            ) : (
+              <p className='profile__loading'>Loading info...</p>
+            )}
           </div>
-        ) : (
-          <p className='section__empty'>
-            You need to Login to view your profile ☹️ <br />
-            <Link to={'/auth'} className='section__empty-cta'>
-              <span>SiginIn</span>
-              <FiArrowRight className='section__empty-cta-icon' />
-            </Link>
-          </p>
-        )}
-      </main>
+          <div className='profile__summary'>
+            <motion.div
+              className='profile__summary__cart'
+              variants={popOut_1(0.4)}
+            >
+              <p className='profile__summary__cart-label'>Cart Items 🛒</p>
+              <strong className='profile__summary__cart-number'>
+                {cartProducts.length}
+              </strong>
+              <button
+                className='profile__summary__cart-btn'
+                disabled={cartProducts.length <= 0}
+                onClick={() => {
+                  navigate('/cart');
+                }}
+              >
+                Check now
+              </button>
+            </motion.div>
+            <motion.div
+              className='profile__summary__wish'
+              variants={popOut_1(0.5)}
+            >
+              <p className='profile__summary__wish-label'>Wish Items 💖</p>
+              <strong className='profile__summary__wish-number'>
+                {wishProducts.length}
+              </strong>
+              <button
+                className='profile__summary__wish-btn'
+                disabled={wishProducts.length <= 0}
+                onClick={() => {
+                  navigate('/wishlist');
+                }}
+              >
+                Check now
+              </button>
+            </motion.div>
+            <motion.div
+              className='profile__summary__order'
+              variants={popOut_1(0.6)}
+            >
+              <p className='profile__summary__order-label'>Total Orders 📦 </p>
+              <strong className='profile__summary__order-number'>
+                {orders ? orders.length : 0}
+              </strong>
+              <button
+                className='profile__summary__order-btn'
+                disabled={orders && orders.length <= 0 ? true : false}
+                onClick={() => {
+                  navigate('/order');
+                }}
+              >
+                Check now
+              </button>
+            </motion.div>
+          </div>
+        </motion.div>
+      </motion.main>
       <Transition />
     </>
   );

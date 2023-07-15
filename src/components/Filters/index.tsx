@@ -7,13 +7,21 @@ import ResetFilter from './ResetFilter';
 
 import { useState } from 'react';
 import { FiList } from 'react-icons/fi';
+import { motion } from 'framer-motion';
+import { fadeIn, filterContainer } from '../../utils/motion';
 
 const Filters = () => {
   const [filterActive, setFilterActive] = useState(false);
 
   return (
     <>
-      <div className='filter__search'>
+      <motion.div
+        className='filter__search'
+        variants={fadeIn(0.5)}
+        initial='hidden'
+        whileInView='show'
+        viewport={{ once: true, amount: 0.25 }}
+      >
         <SearchFilter />
         <button
           type='button'
@@ -25,16 +33,21 @@ const Filters = () => {
         >
           <FiList className='filter__button-icon' />
         </button>
-      </div>
+      </motion.div>
       {filterActive && (
         <>
-          <div className='filter'>
+          <motion.div
+            className='filter'
+            variants={filterContainer(filterActive)}
+            initial='hidden'
+            animate='show'
+          >
             <ResetFilter />
             <CategoryFilter />
             <PriceFilter />
             <SortFilter />
             <RatingFilter />
-          </div>
+          </motion.div>
         </>
       )}
     </>

@@ -18,6 +18,7 @@ import {
 import { useAuthContext, useCartContext, useWishContext } from '../context';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
   const { user } = useAuthContext();
@@ -61,10 +62,12 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
   const minusCart = () => {
     (product as CartProduct).count > 1
       ? cartDispatch({ type: CartActionType.MINUS, payload: product.uuid })
-      : cartDispatch({
+      : window.confirm('Do you want to remove this product from the cart ?')
+      ? cartDispatch({
           type: CartActionType.REMOVE_FROM_CART,
           payload: product.uuid,
-        });
+        })
+      : '';
   };
   const addToWishlist = () => {
     if (user) {
@@ -99,7 +102,6 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
 
   const buyNow = () => {
     if (user) {
-      // console.log('Buy now');
       cartDispatch({ type: CartActionType.RESET, payload: '' });
       cartDispatch({ type: CartActionType.ADD_TO_CART, payload: product });
       navigate('/cart');
@@ -114,7 +116,14 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
   };
 
   return (
-    <article className='product__card'>
+    <motion.div
+      animate={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, scale: 0.9 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.5, type: 'spring' }}
+      layout
+      className='product__card'
+    >
       <img src={product.imageUrl} alt='' className='card__image' />
       <div className='card__info'>
         <h3 className='card__name'>{product.name}</h3>
@@ -196,7 +205,7 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
           Buy Now
         </button>
       </div>
-    </article>
+    </motion.div>
   );
 };
 
