@@ -44,6 +44,7 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
       );
     }
   };
+
   const removeFromCart = () => {
     toast.dismiss();
     toast.success(
@@ -56,9 +57,11 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
       payload: product.uuid,
     });
   };
+
   const plusCart = () => {
     cartDispatch({ type: CartActionType.PLUS, payload: product.uuid });
   };
+
   const minusCart = () => {
     (product as CartProduct).count > 1
       ? cartDispatch({ type: CartActionType.MINUS, payload: product.uuid })
@@ -69,6 +72,7 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
         })
       : '';
   };
+
   const addToWishlist = () => {
     if (user) {
       toast.dismiss();
@@ -87,6 +91,7 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
       );
     }
   };
+
   const removeFromWishlist = () => {
     toast.dismiss();
     toast.success(
