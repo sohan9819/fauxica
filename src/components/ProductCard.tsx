@@ -59,6 +59,7 @@ const ProductCard = ({ variant = 'default', product }: ProductCardProps) => {
   const plusCart = () => {
     cartDispatch({ type: CartActionType.PLUS, payload: product.uuid });
   };
+
   const minusCart = () => {
     (product as CartProduct).count > 1
       ? cartDispatch({ type: CartActionType.MINUS, payload: product.uuid })
