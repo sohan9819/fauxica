@@ -7,6 +7,8 @@ import { Order } from '../utils/types';
 import { useState } from 'react';
 import { FirebaseError } from 'firebase/app';
 import { timeAgo } from '../utils/timeAgo/timeAgo.utils';
+import { motion } from 'framer-motion';
+import { staggerContainer, textVariant_1 } from '../utils/motion';
 
 const OrderId = () => {
   const { orderId } = useParams();
@@ -29,12 +31,24 @@ const OrderId = () => {
 
   return (
     <>
-      <div className='section'>
-        <h1 className='section__title'>Order Info</h1>
+      <motion.div
+        className='section'
+        variants={staggerContainer()}
+        initial='hidden'
+        animate='show'
+      >
+        <motion.h1 className='section__title' variants={textVariant_1(0.1)}>
+          Order Info
+        </motion.h1>
         {orderLoading ? (
-          <p className='section__empty'>Loading...</p>
+          <motion.p className='section__empty' variants={textVariant_1(0.1)}>
+            Loading...
+          </motion.p>
         ) : (
-          <div className='orders__container'>
+          <motion.div
+            className='orders__container'
+            variants={textVariant_1(0.1)}
+          >
             <div className='profile__user'>
               <p className='profile__user__info'>
                 <span className='profile__user__label'>Name</span>
@@ -163,9 +177,8 @@ const OrderId = () => {
               </tbody>
               <tfoot></tfoot>
             </table>
-          </div>
+          </motion.div>
         )}
-
         <button
           className='section__btn'
           onClick={() => {
@@ -174,7 +187,7 @@ const OrderId = () => {
         >
           Back
         </button>
-      </div>
+      </motion.div>
       <Transition />
     </>
   );

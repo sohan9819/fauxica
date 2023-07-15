@@ -13,6 +13,8 @@ import {
   ExtendedWindow,
   OrderActionType,
 } from '../utils/types/order';
+import { motion } from 'framer-motion';
+import { textVariant_1 } from '../utils/motion';
 
 const CartBill = () => {
   const navigate = useNavigate();
@@ -115,7 +117,7 @@ const CartBill = () => {
 
   return (
     <>
-      <table className='cart__bill'>
+      <motion.table className='cart__bill' variants={textVariant_1(0.2)}>
         <thead className='cart__bill__heading'>
           <tr>
             <th colSpan={2} className='cart__bill__heading-text'>
@@ -268,7 +270,7 @@ const CartBill = () => {
             </td>
           </tr>
         </tfoot>
-      </table>
+      </motion.table>
     </>
   );
 };
