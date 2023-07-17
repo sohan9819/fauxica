@@ -35,6 +35,7 @@ type ProductContextProviderProps = {
 };
 
 type InitialStateType = {
+  status: 'loading' | 'noProducts' | null;
   products: ProductsList;
   filterState: FilterState;
   filterDispatch: React.Dispatch<Action>;

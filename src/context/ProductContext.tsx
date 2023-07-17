@@ -4,6 +4,7 @@ import {
   createContext,
   useEffect,
   useReducer,
+  useMemo,
 } from 'react';
 import {
   InitialStateType,
@@ -39,6 +40,7 @@ const ProductContext = createContext({} as InitialStateType);
 
 const ProductContextProvider = ({ children }: ProductContextProviderProps) => {
   const [products, setProducts] = useState([] as ProductsList);
+  // const [status, setStatus] = useState<ProductStatus>('loading');
 
   const reducer = (state: FilterState, action: Action): FilterState => {
     const { type, payload } = action;
@@ -78,9 +80,15 @@ const ProductContextProvider = ({ children }: ProductContextProviderProps) => {
   const [filterState, filterDispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    const productPromise = getProductCollection().then((data) => {
-      setProducts(data as ProductsList);
-    });
+    const productPromise = getProductCollection()
+      .then((data) => {
+        setProducts(data as ProductsList);
+      })
+      .catch((error) => {
+        const e = error as Error;
+        console.log('Products Fetching Error : ', e.message);
+      });
+
     toast.promise(productPromise, {
       loading: 'Loading Products data',
       success: 'Got the Products data',
@@ -88,17 +96,36 @@ const ProductContextProvider = ({ children }: ProductContextProviderProps) => {
     });
   }, []);
 
-  const filteredProducts = productsFilter(
-    searchFilter,
-    categoryFilter,
-    priceFilter,
-    ratingFilter,
-    sortFilter
-  )(products, filterState);
+  const filteredProducts = useMemo(
+    () =>
+      productsFilter(
+        searchFilter,
+        categoryFilter,
+        priceFilter,
+        ratingFilter,
+        sortFilter
+      )(products, filterState),
+    [products, filterState]
+  );
+
+  const status = useMemo(() => {
+    if (products.length === 0) {
+      return 'loading';
+    } else if (filteredProducts.length === 0) {
+      return 'noProducts';
+    } else {
+      return null;
+    }
+  }, [products, filteredProducts]);
 
   return (
     <ProductContext.Provider
-      value={{ products: filteredProducts, filterState, filterDispatch }}
+      value={{
+        status,
+        products: filteredProducts,
+        filterState,
+        filterDispatch,
+      }}
     >
       {children}
     </ProductContext.Provider>
