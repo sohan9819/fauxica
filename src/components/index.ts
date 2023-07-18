@@ -7,6 +7,8 @@ import Transition from './Transition.tsx';
 import CategoryGallery from './CategoryGallery.tsx';
 import CartBill from './CartBill.tsx';
 import SuspenseLoader from './SuspenseLoader.tsx';
+import PageLoader from './PageLoader.tsx';
+import ErrorFallback from './ErrorFallback.tsx';
 
 export {
   Navbar,
@@ -18,4 +20,6 @@ export {
   CategoryGallery,
   CartBill,
   SuspenseLoader,
+  PageLoader,
+  ErrorFallback,
 };

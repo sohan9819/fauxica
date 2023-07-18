@@ -16,9 +16,17 @@
   &__btn {
     padding: 1rem 2rem;
     font-size: $fs-s;
-    background: teal;
-    color: white;
+    color: $color-black;
     border-radius: 1rem;
+
+    &:hover {
+      color: $color-white;
+      background: $color-primary;
+    }
+  }
+
+  &__error {
+    font-size: $fs-default;
   }
 
   &__empty {

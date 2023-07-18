@@ -1,8 +1,8 @@
-import { cloneElement, Suspense, lazy } from 'react';
+import { cloneElement, lazy } from 'react';
 import { useRoutes, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { useAuthContext } from '../context';
-import { SuspenseLoader } from '../components';
+import { PageLoader } from '../components';
 
 const Home = lazy(() =>
   import('../pages').then((module) => ({ default: module.Home }))
@@ -42,21 +42,25 @@ const Router = () => {
         {
           index: true,
           element: (
-            <Suspense fallback={<SuspenseLoader />}>
+            <PageLoader>
               <Home />
-            </Suspense>
+            </PageLoader>
           ),
         },
         {
           path: 'products',
-          element: <Products />,
+          element: (
+            <PageLoader>
+              <Products />
+            </PageLoader>
+          ),
         },
         {
           path: 'wishlist',
           element: user ? (
-            <Suspense fallback={<SuspenseLoader />}>
+            <PageLoader>
               <Wishlist />
-            </Suspense>
+            </PageLoader>
           ) : (
             <Navigate to={'/auth'} />
           ),
@@ -64,9 +68,9 @@ const Router = () => {
         {
           path: 'cart',
           element: user ? (
-            <Suspense fallback={<SuspenseLoader />}>
+            <PageLoader>
               <Cart />
-            </Suspense>
+            </PageLoader>
           ) : (
             <Navigate to={'/auth'} />
           ),
@@ -77,9 +81,9 @@ const Router = () => {
             {
               index: true,
               element: user ? (
-                <Suspense fallback={<SuspenseLoader />}>
+                <PageLoader>
                   <Order />
-                </Suspense>
+                </PageLoader>
               ) : (
                 <Navigate to={'/auth'} />
               ),
@@ -87,9 +91,9 @@ const Router = () => {
             {
               path: ':orderId',
               element: user ? (
-                <Suspense fallback={<SuspenseLoader />}>
+                <PageLoader>
                   <OrderId />
-                </Suspense>
+                </PageLoader>
               ) : (
                 <Navigate to={'/auth'} />
               ),
@@ -99,29 +103,23 @@ const Router = () => {
         {
           path: 'profile',
           element: user ? (
-            <Suspense fallback={<SuspenseLoader />}>
+            <PageLoader>
               <Profile />
-            </Suspense>
+            </PageLoader>
           ) : (
             <Navigate to={'/auth'} />
           ),
         },
         {
           path: 'auth',
-          element: user ? (
-            <Suspense fallback={<SuspenseLoader />}>
-              <Profile />
-            </Suspense>
-          ) : (
-            <Auth />
-          ),
+          element: <PageLoader>{user ? <Profile /> : <Auth />}</PageLoader>,
         },
         {
           path: '*',
           element: (
-            <Suspense fallback={<SuspenseLoader />}>
+            <PageLoader>
               <Error404 />
-            </Suspense>
+            </PageLoader>
           ),
         },
       ],
