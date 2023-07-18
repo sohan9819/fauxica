@@ -6,6 +6,7 @@ import SignUpForm from './SignUpForm.tsx';
 import Transition from './Transition.tsx';
 import CategoryGallery from './CategoryGallery.tsx';
 import CartBill from './CartBill.tsx';
+import SuspenseLoader from './SuspenseLoader.tsx';
 
 export {
   Navbar,
@@ -16,4 +17,5 @@ export {
   Transition,
   CategoryGallery,
   CartBill,
+  SuspenseLoader,
 };

@@ -9,6 +9,14 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
 
+  &-loader {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .card {
     &__image {
       aspect-ratio: 1;
