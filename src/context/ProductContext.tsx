@@ -26,7 +26,6 @@ import {
   ratingFilter,
   sortFilter,
 } from '../utils/filters';
-import toast from 'react-hot-toast';
 
 const initialState = {
   search: '',
@@ -40,7 +39,6 @@ const ProductContext = createContext({} as InitialStateType);
 
 const ProductContextProvider = ({ children }: ProductContextProviderProps) => {
   const [products, setProducts] = useState([] as ProductsList);
-  // const [status, setStatus] = useState<ProductStatus>('loading');
 
   const reducer = (state: FilterState, action: Action): FilterState => {
     const { type, payload } = action;
@@ -80,7 +78,8 @@ const ProductContextProvider = ({ children }: ProductContextProviderProps) => {
   const [filterState, filterDispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    const productPromise = getProductCollection()
+    // const productPromise = getProductCollection()
+    getProductCollection()
       .then((data) => {
         setProducts(data as ProductsList);
       })
@@ -88,12 +87,11 @@ const ProductContextProvider = ({ children }: ProductContextProviderProps) => {
         const e = error as Error;
         console.log('Products Fetching Error : ', e.message);
       });
-
-    toast.promise(productPromise, {
-      loading: 'Loading Products data',
-      success: 'Got the Products data',
-      error: 'Error when fetching Products',
-    });
+    // toast.promise(productPromise, {
+    //   loading: 'Loading Products data',
+    //   success: 'Got the Products data',
+    //   error: 'Error when fetching Products',
+    // });
   }, []);
 
   const filteredProducts = useMemo(
