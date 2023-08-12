@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { signInAuthUserWithEmailAndPassword } from '../utils/firebase/firebase.utils';
 import { FirebaseError } from 'firebase/app';
 import toast from 'react-hot-toast';
+import { z } from 'zod';
 
 type FormInputs = {
   email: string;

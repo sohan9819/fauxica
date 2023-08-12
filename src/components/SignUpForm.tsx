@@ -8,30 +8,54 @@ import { FirebaseError } from 'firebase/app';
 import toast from 'react-hot-toast';
 import { updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-type FormInputs = {
-  displayName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  terms: boolean;
-};
+const signUpFormSchema = z
+  .object({
+    displayName: z.string().min(3, 'Username should be at least 3 characters'),
+    email: z.string().email(),
+    password: z
+      .string()
+      .regex(new RegExp('.*[A-Z].*'), 'One uppercase character')
+      .regex(new RegExp('.*[a-z].*'), 'One lowercase character')
+      .regex(new RegExp('.*\\d.*'), 'One number')
+      .regex(
+        new RegExp('.*[`~<>?,./!@#$%^&*()\\-_+="\'|{}\\[\\];:\\\\].*'),
+        'One special character'
+      )
+      .min(8, 'Must be at least 8 characters in length')
+      .max(12, 'Must be within characters in length'),
+    confirmPassword: z.string(),
+    terms: z.boolean(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Your passwords do not match',
+    path: ['confirmPassword'],
+  })
+  .refine((data) => data.terms === true, {
+    message: 'You must agree to the terms and conditions',
+    path: ['terms'],
+  });
+
+type SignUpFormSchema = z.infer<typeof signUpFormSchema>;
 
 const SignUpForm = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     reset,
-  } = useForm<FormInputs>({});
+  } = useForm<SignUpFormSchema>({
+    resolver: zodResolver(signUpFormSchema),
+  });
 
   const [authLoading, setAuthLoading] = useState(false);
   const [authError, setAuthError] = useState('');
 
   const navigate = useNavigate();
 
-  const onSubmitHandler: SubmitHandler<FormInputs> = async ({
+  const onSubmitHandler: SubmitHandler<SignUpFormSchema> = async ({
     displayName,
     email,
     password,
@@ -81,10 +105,6 @@ const SignUpForm = () => {
           placeholder='Username'
           {...register('displayName', {
             required: 'Username is required',
-            minLength: {
-              value: 3,
-              message: 'Username should be at least 3 characters',
-            },
             disabled: authLoading,
           })}
         />
@@ -98,10 +118,6 @@ const SignUpForm = () => {
           id='email'
           {...register('email', {
             required: 'Email is required',
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: 'invalid email address',
-            },
             disabled: authLoading,
           })}
           placeholder='Email'
@@ -116,20 +132,6 @@ const SignUpForm = () => {
           id='password'
           placeholder='Password'
           {...register('password', {
-            required: 'Password is required',
-            minLength: {
-              value: 6,
-              message: 'Password length should be at least 6 characters',
-            },
-            maxLength: {
-              value: 12,
-              message: 'Password cannot exceed more than 12 characters',
-            },
-            pattern: {
-              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,12}$/,
-              message:
-                'Your password must contain at least one uppercase, one lowercase, one number and one special character',
-            },
             disabled: authLoading,
           })}
         />
@@ -143,9 +145,6 @@ const SignUpForm = () => {
           id='confPassword '
           placeholder='Confirm Password'
           {...register('confirmPassword', {
-            required: 'Please confirm password',
-            validate: (val: string) =>
-              watch('password') !== val ? 'Your passwords do not match' : true,
             disabled: authLoading,
           })}
         />
@@ -156,7 +155,6 @@ const SignUpForm = () => {
           className='auth__terms-input'
           type='checkbox'
           {...register('terms', {
-            required: 'You need to agree all terms and condition',
             disabled: authLoading,
           })}
           id='terms'
